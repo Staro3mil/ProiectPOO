@@ -1,0 +1,8 @@
+[ {
+  "credentials" : {
+    "name" : "Eduard",
+    "password" : "secret",
+    "accountType" : "standard",
+    "country" : "50"
+  }
+} ]

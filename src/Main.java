@@ -15,26 +15,25 @@ public class Main {
         Input input = mapper.readValue(new File(args[0]), Input.class);
         ArrayNode output = mapper.createArrayNode();
 
-        String currPage = new String();
-        currPage = "unauth";
 
-        ArrayList<User> users = input.getUsers();
-        Credentials currUser = users.get(0).getCredentials();
-        ObjectNode credentials = mapper.createObjectNode();
-        ObjectNode user = mapper.createObjectNode();
-        user.put("name", currUser.getName());
-        user.put("password", currUser.getPassword());
-        user.put("accountType", currUser.getAccType());
-        user.put("country", currUser.getBalance());
-        credentials.set("credentials", user);
+        ArrayList<Action> actionList = input.getActions();
 
+        for (int i = 0; i < actionList.size(); i++) {
+            Action currAction = actionList.get(i);
+            String type = currAction.getType();
+            String page = currAction.getPage();
 
-        output.add(credentials);
+            if (type.equals("change page")) {
+
+            }
+
+        }
 
 
 
 
-
-        mapper.writeValue(new File(args[1]), output);
+        ObjectWriter objectWriter = mapper.writerWithDefaultPrettyPrinter();
+        objectWriter.writeValue(new File(args[1]), output);
+        objectWriter.writeValue(new File("output.txt"), output);
     }
 }

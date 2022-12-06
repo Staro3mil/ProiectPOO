@@ -7,7 +7,7 @@ public class Action {
     private String page;
     private String feature;
 
-    private User credentials = new User();
+    private Credentials credentials;
 
     private String startsWith;
 
@@ -42,11 +42,11 @@ public class Action {
         this.feature = feature;
     }
 
-    public User getCredentials() {
+    public Credentials getCredentials() {
         return credentials;
     }
 
-    public void setCredentials(User credentials) {
+    public void setCredentials(Credentials credentials) {
         this.credentials = credentials;
     }
 

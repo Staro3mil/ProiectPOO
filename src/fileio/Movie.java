@@ -1,5 +1,9 @@
 package fileio;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import java.util.ArrayList;
 
 public class Movie {
@@ -9,6 +13,30 @@ public class Movie {
     private ArrayList<String> genres;
     private ArrayList<String> actors;
     private ArrayList<String> countriesBanned;
+
+    public ObjectNode toNode(){
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode node = mapper.createObjectNode();
+        node.put("name", name);
+        node.put("year", year);
+        node.put("duration", duration);
+        ArrayNode genreArray = mapper.createArrayNode();
+        for(String genre : genres){
+            genreArray.add(genre);
+        }
+        node.set("genres", genreArray);
+        ArrayNode actorsArray = mapper.createArrayNode();
+        for(String actor : actors){
+            genreArray.add(actor);
+        }
+        node.set("actors", actorsArray);
+        ArrayNode countriesArray = mapper.createArrayNode();
+        for(String country : countriesBanned){
+            genreArray.add(country);
+        }
+        node.set("genres", countriesArray);
+        return node;
+    }
 
     public String getName() {
         return name;
