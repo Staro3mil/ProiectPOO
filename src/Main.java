@@ -19,7 +19,7 @@ public class Main {
         currPage = "unauth";
 
         ArrayList<User> users = input.getUsers();
-        User currUser = users.get(0);
+        Credentials currUser = users.get(0).getCredentials();
         ObjectNode credentials = mapper.createObjectNode();
         ObjectNode user = mapper.createObjectNode();
         user.put("name", currUser.getName());
