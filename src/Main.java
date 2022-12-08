@@ -13,18 +13,21 @@ public class Main {
         ObjectMapper mapper = new ObjectMapper();
         Input input = mapper.readValue(new File(args[0]), Input.class);
         ArrayNode output = mapper.createArrayNode();
-
-
         ArrayList<Action> actionList = input.getActions();
-
+        Page currentPage = new Page("unauth", input.getUsers(), null, null);
+        Login login = new Login();
+        Unauth unauth = new Unauth(output);
         for (int i = 0; i < actionList.size(); i++) {
             Action currAction = actionList.get(i);
             String type = currAction.getType();
-            String page = currAction.getPage();
-
             if (type.equals("change page")) {
-
+                switch (currentPage.getCurrentPage()){
+                    case "unauth":
+                        unauth.ChangePage(currAction.getPage());
+                }
             }
+
+
 
         }
 

@@ -7,11 +7,11 @@ public class Login extends Page {
 
 
     public void OnPage(String feature, Credentials credentials) {
-        for(User user : super.getUsers()){
-            String existingName = user.getCredentials().getName();
+        for(Credentials credential : super.getUsers()){
+            String existingName = credential.getName();
             String loginName = credentials.getName();
             if (existingName.equals(loginName)) {
-                super.setCurrentUser(user);
+                super.setCurrentUser(credential);
                 break;
             }
         }

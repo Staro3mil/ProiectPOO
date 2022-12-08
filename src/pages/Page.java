@@ -1,6 +1,9 @@
 package pages;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import fileio.Credentials;
 import fileio.Movie;
 import fileio.User;
 
@@ -8,8 +11,9 @@ import java.util.ArrayList;
 
 public class Page {
     private String currentPage;
-    private ArrayList<User> users;
-    private User currentUser;
+    private ArrayList<Credentials> users;
+    private Credentials currentUser;
+    private ArrayList<Movie> userMovies;
     public Page() {
 
     }
@@ -18,10 +22,30 @@ public class Page {
 
     }
 
-    public Page(String currentPage, ArrayList<User> users, User currentUser) {
+    public void Error(ArrayNode output) {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode out = mapper.createObjectNode();
+
+        out.put("error", "Error" );
+        ArrayNode movieList = mapper.createArrayNode();
+        for(Movie movie:userMovies) {
+            movieList.add(movie.toNode());
+        }
+        if (currentUser == null) {
+            String nothing = null;
+            out.put("currentUser", nothing);
+        } else {
+            out.set("currentUser", currentUser.toNode());
+        }
+
+
+    }
+
+    public Page(String currentPage, ArrayList<Credentials> users, Credentials currentUser, ArrayList<Movie> userMovies) {
         this.currentPage = currentPage;
         this.users = users;
         this.currentUser = currentUser;
+        this.userMovies = userMovies;
     }
 
     public String getCurrentPage() {
@@ -32,19 +56,27 @@ public class Page {
         this.currentPage = currentPage;
     }
 
-    public ArrayList<User> getUsers() {
+    public ArrayList<Credentials> getUsers() {
         return users;
     }
 
-    public void setUsers(ArrayList<User> users) {
+    public void setUsers(ArrayList<Credentials> users) {
         this.users = users;
     }
 
-    public User getCurrentUser() {
+    public Credentials getCurrentUser() {
         return currentUser;
     }
 
-    public void setCurrentUser(User currentUser) {
+    public void setCurrentUser(Credentials currentUser) {
         this.currentUser = currentUser;
+    }
+
+    public ArrayList<Movie> getUserMovies() {
+        return userMovies;
+    }
+
+    public void setUserMovies(ArrayList<Movie> userMovies) {
+        this.userMovies = userMovies;
     }
 }

@@ -3,7 +3,7 @@ package fileio;
 import java.util.ArrayList;
 
 public class Input {
-    private ArrayList<User> users;
+    private ArrayList<Credentials> users;
     private ArrayList<Movie> movies;
     private ArrayList<Action> actions;
 
@@ -11,11 +11,11 @@ public class Input {
 
     }
 
-    public ArrayList<User> getUsers() {
+    public ArrayList<Credentials> getUsers() {
         return users;
     }
 
-    public void setUsers(ArrayList<User> users) {
+    public void setUsers(ArrayList<Credentials> users) {
         this.users = users;
     }
 

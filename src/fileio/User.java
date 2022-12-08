@@ -1,13 +1,15 @@
 package fileio;
 
-public class User {
-    private Credentials credentials;
+import java.util.ArrayList;
 
-    public Credentials getCredentials() {
+public class User {
+    private ArrayList<Credentials> credentials;
+
+    public ArrayList<Credentials> getCredentials() {
         return credentials;
     }
 
-    public void setCredentials(Credentials credentials) {
+    public void setCredentials(ArrayList<Credentials> credentials) {
         this.credentials = credentials;
     }
 }
