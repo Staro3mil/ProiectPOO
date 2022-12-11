@@ -1,6 +1,4 @@
-package fileio;
-
-import com.fasterxml.jackson.databind.node.ObjectNode;
+package input;
 
 public class Action {
     private String type;
@@ -18,67 +16,67 @@ public class Action {
     private int rate;
 
 
-    public String getType() {
+    public final String getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public final void setType(final String type) {
         this.type = type;
     }
 
-    public String getPage() {
+    public final String getPage() {
         return page;
     }
 
-    public void setPage(String page) {
+    public final void setPage(final String page) {
         this.page = page;
     }
 
-    public String getFeature() {
+    public final String getFeature() {
         return feature;
     }
 
-    public void setFeature(String feature) {
+    public final void setFeature(final String feature) {
         this.feature = feature;
     }
 
-    public Credentials getCredentials() {
+    public final Credentials getCredentials() {
         return credentials;
     }
 
-    public void setCredentials(Credentials credentials) {
+    public final void setCredentials(final Credentials credentials) {
         this.credentials = credentials;
     }
 
-    public String getStartsWith() {
+    public final String getStartsWith() {
         return startsWith;
     }
 
-    public void setStartsWith(String startsWith) {
+    public final void setStartsWith(final String startsWith) {
         this.startsWith = startsWith;
     }
 
-    public Filter getFilters() {
+    public final Filter getFilters() {
         return filters;
     }
 
-    public void setFilters(Filter filters) {
+    public final void setFilters(final Filter filters) {
         this.filters = filters;
     }
 
-    public int getCount() {
+    public final int getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public final void setCount(final int count) {
         this.count = count;
     }
 
-    public int getRate() {
+    public final int getRate() {
         return rate;
     }
 
-    public void setRate(int rate) {
+    public final void setRate(final int rate) {
         this.rate = rate;
     }
 }

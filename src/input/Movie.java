@@ -1,4 +1,4 @@
-package fileio;
+package input;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -6,32 +6,32 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.util.ArrayList;
 
-public class Movie {
+public final class Movie {
     private String name;
     private int year;
     private int duration;
     private ArrayList<String> genres;
     private ArrayList<String> actors;
     private ArrayList<String> countriesBanned;
-
-    public ObjectNode toNode(){
+    /** Converts the Movie object to an ObjectNode and returns it */
+    public ObjectNode toNode() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode node = mapper.createObjectNode();
         node.put("name", name);
         node.put("year", year);
         node.put("duration", duration);
         ArrayNode genreArray = mapper.createArrayNode();
-        for(String genre : genres){
+        for (String genre : genres) {
             genreArray.add(genre);
         }
         node.set("genres", genreArray);
         ArrayNode actorsArray = mapper.createArrayNode();
-        for(String actor : actors){
+        for (String actor : actors) {
             genreArray.add(actor);
         }
         node.set("actors", actorsArray);
         ArrayNode countriesArray = mapper.createArrayNode();
-        for(String country : countriesBanned){
+        for (String country : countriesBanned) {
             genreArray.add(country);
         }
         node.set("genres", countriesArray);
@@ -42,7 +42,7 @@ public class Movie {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -50,7 +50,7 @@ public class Movie {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(final int year) {
         this.year = year;
     }
 
@@ -58,7 +58,7 @@ public class Movie {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(final int duration) {
         this.duration = duration;
     }
 
@@ -66,7 +66,7 @@ public class Movie {
         return genres;
     }
 
-    public void setGenres(ArrayList<String> genres) {
+    public void setGenres(final ArrayList<String> genres) {
         this.genres = genres;
     }
 
@@ -74,7 +74,7 @@ public class Movie {
         return actors;
     }
 
-    public void setActors(ArrayList<String> actors) {
+    public void setActors(final ArrayList<String> actors) {
         this.actors = actors;
     }
 
@@ -82,7 +82,7 @@ public class Movie {
         return countriesBanned;
     }
 
-    public void setCountriesBanned(ArrayList<String> countriesBanned) {
+    public void setCountriesBanned(final ArrayList<String> countriesBanned) {
         this.countriesBanned = countriesBanned;
     }
 }

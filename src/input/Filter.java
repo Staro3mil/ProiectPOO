@@ -1,6 +1,6 @@
-package fileio;
+package input;
 
-public class Filter {
+public final class Filter {
     private Movie contains;
     private Sort sort;
 
@@ -8,7 +8,7 @@ public class Filter {
         return contains;
     }
 
-    public void setContains(Movie contains) {
+    public void setContains(final Movie contains) {
         this.contains = contains;
     }
 
@@ -16,7 +16,7 @@ public class Filter {
         return sort;
     }
 
-    public void setSort(Sort sort) {
+    public void setSort(final Sort sort) {
         this.sort = sort;
     }
 }

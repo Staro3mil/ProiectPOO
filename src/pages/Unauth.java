@@ -1,22 +1,34 @@
 package pages;
 
-import com.fasterxml.jackson.databind.node.ArrayNode;
+import input.Action;
 
-public class Unauth extends Page {
-    private ArrayNode output;
-
-    public void ChangePage(String nextPage) {
-        if(nextPage.equals("login")) {
-            super.setCurrentPage("Login");
-        } else if (nextPage.equals("register")) {
-            super.setCurrentPage("Register");
-        } else {
-            super.Error(output);
+import static input.Global.currPage;
+public final class Unauth implements Page {
+    @Override
+    public void changePage(final String nextPage) {
+        switch (nextPage) {
+            case "login":
+                currPage = "login";
+                break;
+            case "register":
+                currPage = "register";
+                break;
+            default:
+                error();
+                break;
         }
+    }
+    @Override
+    public void onPage(final Action action) {
 
     }
 
-    public Unauth(ArrayNode output) {
-        this.output = output;
+    @Override
+    public void error() {
+
+    }
+
+    public Unauth() {
+
     }
 }

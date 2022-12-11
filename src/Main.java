@@ -1,32 +1,40 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import fileio.*;
+import java.util.HashMap;
+import java.util.Map;
+import input.*;
 import pages.*;
+import static input.Global.*;
+
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    /** Does the thing */
+    public static void main(final String[] args) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         Input input = mapper.readValue(new File(args[0]), Input.class);
-        ArrayNode output = mapper.createArrayNode();
+        output = mapper.createArrayNode();
         ArrayList<Action> actionList = input.getActions();
-        Page currentPage = new Page("unauth", input.getUsers(), null, null);
-        Login login = new Login();
-        Unauth unauth = new Unauth(output);
+        users = input.getUsers();
+        movies = input.getMovies();
+        Map<String, Page> pageHandler = new HashMap<>();
+        pageHandler.put("login", new Login());
+        pageHandler.put("unauth", new Unauth());
+        pageHandler.put("register", new Register());
+        pageHandler.put("auth", new Auth());
+
         for (int i = 0; i < actionList.size(); i++) {
             Action currAction = actionList.get(i);
             String type = currAction.getType();
+            Page currentPage = pageHandler.get(currPage);
             if (type.equals("change page")) {
-                switch (currentPage.getCurrentPage()){
-                    case "unauth":
-                        unauth.ChangePage(currAction.getPage());
-                }
+                String nextPage = currAction.getPage();
+                currentPage.changePage(nextPage);
+            } else {
+                currentPage.onPage(currAction);
             }
-
 
 
         }
