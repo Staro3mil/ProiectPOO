@@ -6,11 +6,14 @@ import input.Action;
 import input.Credentials;
 import input.User;
 import input.Movie;
+
 import static input.Global.currentMovies;
 import static input.Global.currentUser;
 import static input.Global.output;
 import static input.Global.currPage;
 import static input.Global.users;
+
+
 public final class Register implements Page {
     /** Checks if the user already exists in the list of already existing users
      * and then adds them to the list */
@@ -23,14 +26,10 @@ public final class Register implements Page {
         Integer nothing = null;
         outUser.put("error", nothing);
         ArrayNode movieArray = mapper.createArrayNode();
-        if (currentMovies != null) {
-            for (Movie movie : currentMovies) {
-                movieArray.add(movie.toNode());
-            }
-        }
         outUser.set("currentMoviesList", movieArray);
         outUser.set("currentUser", newUser.toNode());
         output.add(outUser);
+        currentUser = newUser;
         currPage = "auth";
     }
     @Override
@@ -63,13 +62,10 @@ public final class Register implements Page {
             }
         }
         errorOut.set("currentMoviesList", movieArray);
-        if (currentUser == null) {
-            String nothing = null;
-            errorOut.put("currentUser", nothing);
-        } else {
-            ObjectNode credentials = currentUser.getCredentials().toNode();
-            errorOut.set("currentUser", credentials);
-        }
+
+        String nothing = null;
+        errorOut.put("currentUser", nothing);
+
         output.add(errorOut);
         currPage = "unauth";
     }

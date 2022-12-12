@@ -13,6 +13,9 @@ public final class Movie {
     private ArrayList<String> genres;
     private ArrayList<String> actors;
     private ArrayList<String> countriesBanned;
+    private int numLikes;
+    private int rating;
+    private int numRatings;
     /** Converts the Movie object to an ObjectNode and returns it */
     public ObjectNode toNode() {
         ObjectMapper mapper = new ObjectMapper();
@@ -27,14 +30,17 @@ public final class Movie {
         node.set("genres", genreArray);
         ArrayNode actorsArray = mapper.createArrayNode();
         for (String actor : actors) {
-            genreArray.add(actor);
+            actorsArray.add(actor);
         }
         node.set("actors", actorsArray);
         ArrayNode countriesArray = mapper.createArrayNode();
         for (String country : countriesBanned) {
-            genreArray.add(country);
+            countriesArray.add(country);
         }
-        node.set("genres", countriesArray);
+        node.set("countriesBanned", countriesArray);
+        node.put("numLikes", numLikes);
+        node.put("rating", rating);
+        node.put("numRatings", numRatings);
         return node;
     }
 

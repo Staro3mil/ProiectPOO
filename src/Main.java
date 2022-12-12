@@ -7,7 +7,12 @@ import java.util.HashMap;
 import java.util.Map;
 import input.*;
 import pages.*;
-import static input.Global.*;
+import static input.Global.currentMovies;
+import static input.Global.output;
+import static input.Global.currPage;
+import static input.Global.movies;
+import static input.Global.users;
+import static input.Global.currentUser;
 
 
 public class Main {
@@ -19,11 +24,15 @@ public class Main {
         ArrayList<Action> actionList = input.getActions();
         users = input.getUsers();
         movies = input.getMovies();
+        currentMovies = new ArrayList<>();
+        currentUser = null;
+        currPage = "unauth";
         Map<String, Page> pageHandler = new HashMap<>();
         pageHandler.put("login", new Login());
         pageHandler.put("unauth", new Unauth());
         pageHandler.put("register", new Register());
         pageHandler.put("auth", new Auth());
+        pageHandler.put("movies", new Movies());
 
         for (int i = 0; i < actionList.size(); i++) {
             Action currAction = actionList.get(i);

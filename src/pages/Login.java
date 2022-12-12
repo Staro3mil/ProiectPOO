@@ -63,13 +63,9 @@ public final class Login implements Page {
             }
         }
         errorOut.set("currentMoviesList", movieArray);
-        if (currentUser == null) {
-//            String nothing = null;
+
             errorOut.set("currentUser", null);
-        } else {
-            ObjectNode credentials = currentUser.getCredentials().toNode();
-            errorOut.set("currentUser", credentials);
-        }
+
         output.add(errorOut);
         currPage = "unauth";
     }
