@@ -40,7 +40,12 @@ public class Main {
             Page currentPage = pageHandler.get(currPage);
             if (type.equals("change page")) {
                 String nextPage = currAction.getPage();
-                currentPage.changePage(nextPage);
+                if(currPage.equals("movies") && nextPage.equals("see details")){
+                    currentPage.onPage(currAction);
+                } else {
+                    currentPage.changePage(nextPage);
+                }
+
             } else {
                 currentPage.onPage(currAction);
             }

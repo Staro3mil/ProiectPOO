@@ -2,8 +2,11 @@ package pages;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import input.Action;
-import input.Movie;
+import input.*;
+
+import java.util.Collections;
+import java.util.Comparator;
+
 import static input.Global.currentMovies;
 import static input.Global.currentUser;
 import static input.Global.output;
@@ -27,11 +30,51 @@ public final class Movies implements Page {
     public void filterMovie(final Action action) {
         if (currentMovies.isEmpty()) {
             currentUser.showUserMovies();
+            return;
         }
+        Filter filter = action.getFilters();
+        Sort sort = filter.getSort();
+        String duration = sort.getDuration();
+        String rating = sort.getRating();
+        currentMovies.sort(Comparator.comparingInt(Movie::getRating));
+        if (rating.equals("decreasing")) {
+            Collections.sort(currentMovies, Collections.reverseOrder());
+        }
+        currentMovies.sort(Comparator.comparingInt(Movie::getDuration));
+        if (duration.equals("decreasing")) {
+            Collections.sort(currentMovies, Collections.reverseOrder());
+        }
+//        Movie contains = action.getFilters().getContains();
+//        for(Movie movie : currentMovies) {
+//            if (!java.util.Objects.equals(contains, movie)) {
+//                currentMovies.remove(movie);
+//            }
+//        }
+
+
     }
+
+    public void seeDetails(Action action){
+        String movieName = action.getMovie();
+        for(Movie movie : currentMovies) {
+            if (movieName.equals(movie.getName())) {
+                return;
+            }
+        }
+        User useraux = new User();
+        useraux.setCredentials(currentUser.getCredentials());
+        currentUser = null;
+        error();
+        currentUser = useraux;
+    }
+
     @Override
     public void onPage(final Action action) {
         String feature = action.getFeature();
+        if (action.getPage().equals("see details")) {
+            seeDetails(action);
+            return;
+        }
         switch (feature) {
             case "search":
                 searchMovie(action);
@@ -50,9 +93,6 @@ public final class Movies implements Page {
         switch (nextPage) {
             case "homepage":
                 currPage = "movies";
-                break;
-            case "see details":
-                currPage = "upgrades";
                 break;
             case "logout":
                 currPage = "unauth";

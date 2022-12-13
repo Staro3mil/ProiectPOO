@@ -34,7 +34,6 @@ public final class Auth implements Page {
     @Override
     public void onPage(final Action action) {
         error();
-
     }
 
     @Override

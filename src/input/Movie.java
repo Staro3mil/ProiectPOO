@@ -16,6 +16,7 @@ public final class Movie {
     private int numLikes;
     private int rating;
     private int numRatings;
+
     /** Converts the Movie object to an ObjectNode and returns it */
     public ObjectNode toNode() {
         ObjectMapper mapper = new ObjectMapper();
@@ -42,6 +43,30 @@ public final class Movie {
         node.put("rating", rating);
         node.put("numRatings", numRatings);
         return node;
+    }
+
+    public int getNumLikes() {
+        return numLikes;
+    }
+
+    public void setNumLikes(int numLikes) {
+        this.numLikes = numLikes;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public int getNumRatings() {
+        return numRatings;
+    }
+
+    public void setNumRatings(int numRatings) {
+        this.numRatings = numRatings;
     }
 
     public String getName() {

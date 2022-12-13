@@ -15,6 +15,15 @@ public class Action {
 
     private int rate;
 
+    private String movie;
+
+    public String getMovie() {
+        return movie;
+    }
+
+    public void setMovie(String movie) {
+        this.movie = movie;
+    }
 
     public final String getType() {
         return type;
