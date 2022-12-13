@@ -25,6 +25,7 @@ public final class Movies implements Page {
             }
         }
         currentUser.showUserMovies();
+        currentUser.resetMovies();
     }
     /** Filters the movies*/
     public void filterMovie(final Action action) {
@@ -36,7 +37,7 @@ public final class Movies implements Page {
         Sort sort = filter.getSort();
         String duration = sort.getDuration();
         String rating = sort.getRating();
-        currentMovies.sort(Comparator.comparingInt(Movie::getRating));
+        currentMovies.sort(Comparator.comparingDouble(Movie::getRating));
         if (rating.equals("decreasing")) {
             Collections.sort(currentMovies, Collections.reverseOrder());
         }
@@ -71,9 +72,11 @@ public final class Movies implements Page {
     @Override
     public void onPage(final Action action) {
         String feature = action.getFeature();
-        if (action.getPage().equals("see details")) {
-            seeDetails(action);
-            return;
+        if (action.getPage()!= null) {
+            if (action.getPage().equals("see details")) {
+                seeDetails(action);
+                return;
+            }
         }
         switch (feature) {
             case "search":

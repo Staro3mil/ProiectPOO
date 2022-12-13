@@ -64,23 +64,17 @@
     },
     {
       "type": "on page",
-      "page": "register",
       "feature": "register",
       "credentials": {
         "name": "Ramsi",
         "password": "numiplacevelea",
         "accountType": "standard",
-        "country": "Russia",
+        "country": "Romania",
         "balance": "300"
       }
     },
     {
-      "type": "change page",
-      "page": "movies"
-    },
-    {
       "type": "on page",
-      "page": "movies",
       "feature": "filter",
       "filters": {
         "sort": {
@@ -88,6 +82,31 @@
           "duration": "decreasing"
         }
       }
+    },
+    {
+      "type": "change page",
+      "page": "logout"
+    },
+    {
+      "type": "change page",
+      "page": "login"
+    },
+    {
+      "type": "on page",
+      "feature": "login",
+      "credentials": {
+        "name": "Mihail",
+        "password": "discret"
+      }
+    },
+    {
+      "type": "change page",
+      "page": "movies"
+    },
+    {
+      "type": "change page",
+      "page": "see details",
+      "movie": "Titanic"
     }
   ]
 }

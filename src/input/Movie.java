@@ -14,7 +14,7 @@ public final class Movie {
     private ArrayList<String> actors;
     private ArrayList<String> countriesBanned;
     private int numLikes;
-    private int rating;
+    private double rating;
     private int numRatings;
 
     /** Converts the Movie object to an ObjectNode and returns it */
@@ -53,7 +53,7 @@ public final class Movie {
         this.numLikes = numLikes;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 

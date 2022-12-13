@@ -64,42 +64,13 @@
     },
     {
       "type": "on page",
-      "page": "register",
       "feature": "register",
       "credentials": {
         "name": "Ramsi",
         "password": "numiplacevelea",
         "accountType": "standard",
-        "country": "Romania",
+        "country": "Russia",
         "balance": "300"
-      }
-    },
-    {
-      "type": "on page",
-      "page": "movies",
-      "feature": "filter",
-      "filters": {
-        "sort": {
-          "rating": "decreasing",
-          "duration": "decreasing"
-        }
-      }
-    },
-    {
-      "type": "change page",
-      "page": "logout"
-    },
-    {
-      "type": "change page",
-      "page": "login"
-    },
-    {
-      "type": "on page",
-      "page": "login",
-      "feature": "login",
-      "credentials": {
-        "name": "Mihail",
-        "password": "discret"
       }
     },
     {

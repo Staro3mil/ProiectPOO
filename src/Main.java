@@ -33,6 +33,7 @@ public class Main {
         pageHandler.put("register", new Register());
         pageHandler.put("auth", new Auth());
         pageHandler.put("movies", new Movies());
+        pageHandler.put("upgrades", new Upgrades());
 
         for (int i = 0; i < actionList.size(); i++) {
             Action currAction = actionList.get(i);
@@ -58,6 +59,6 @@ public class Main {
 
         ObjectWriter objectWriter = mapper.writerWithDefaultPrettyPrinter();
         objectWriter.writeValue(new File(args[1]), output);
-        objectWriter.writeValue(new File("output.txt"), output);
+        objectWriter.writeValue(new File("output.json"), output);
     }
 }

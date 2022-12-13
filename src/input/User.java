@@ -17,7 +17,7 @@ public final class User {
     private ArrayList<Movie> watchedMovies = null;;
     private ArrayList<Movie> likedMovies = null;;
     private ArrayList<Movie> ratedMovies = null;;
-    /** Displays the current user along with all their current movies*/
+    /** Adds the list of movies to the current user and displays them*/
     public void showUser() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode errorOut = mapper.createObjectNode();
@@ -49,6 +49,7 @@ public final class User {
         }
         output.add(errorOut);
     }
+    /** Displays the current user along with all their current movies without adding any*/
     public void showUserMovies() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode errorOut = mapper.createObjectNode();
@@ -69,6 +70,22 @@ public final class User {
         }
         output.add(errorOut);
     }
+    /** Resets the movies of the user and adds all the ones that aren't banned*/
+    public void resetMovies(){
+        currentMovies = new ArrayList<>();
+        if (currentUser != null) {
+            for (Movie movie : movies) {
+                String country = currentUser.getCredentials().getCountry();
+                for (String countryBan : movie.getCountriesBanned()) {
+                    if (!countryBan.equals(country)) {
+                        currentMovies.add(movie);
+                    }
+                }
+            }
+        }
+    }
+
+
     /** Converts the User object to an ObjectNode and returns it */
     public ObjectNode toNode() {
         ObjectMapper mapper = new ObjectMapper();
