@@ -1,10 +1,12 @@
 package pages;
 
-import input.Movie;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import input.Action;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import java.util.ArrayList;
+
 import static input.Global.currentMovies;
 import static input.Global.currentUser;
 import static input.Global.output;
@@ -17,13 +19,16 @@ public final class Auth implements Page {
         switch (nextPage) {
             case "movies":
                 currPage = "movies";
-                currentUser.showUser();
+                currentUser.resetMovies();
+                currentUser.showUserMovies();
+
                 break;
             case "upgrades":
                 currPage = "upgrades";
                 break;
             case "logout":
                 currPage = "unauth";
+                currentMovies = new ArrayList<>();
                 currentUser = null;
                 break;
             default:
@@ -42,15 +47,8 @@ public final class Auth implements Page {
         ObjectNode errorOut = mapper.createObjectNode();
         errorOut.put("error", "Error");
         ArrayNode movieArray = mapper.createArrayNode();
-        if (currentMovies != null) {
-            for (Movie movie : currentMovies) {
-                movieArray.add(movie.toNode());
-            }
-        }
         errorOut.set("currentMoviesList", movieArray);
-
-            errorOut.set("currentUser", null);
-
+        errorOut.set("currentUser", null);
         output.add(errorOut);
 
     }

@@ -13,11 +13,11 @@ public final class User {
     private Credentials credentials;
     private int tokensCount;
     private int numFreePremiumMovies = 15;
-    private ArrayList<Movie> purchasedMovies = null;
-    private ArrayList<Movie> watchedMovies = null;;
-    private ArrayList<Movie> likedMovies = null;;
-    private ArrayList<Movie> ratedMovies = null;;
-    /** Adds the list of movies to the current user and displays them*/
+    private ArrayList<Movie> purchasedMovies = new ArrayList<>();
+    private ArrayList<Movie> watchedMovies = new ArrayList<>();
+    private ArrayList<Movie> likedMovies = new ArrayList<>();
+    private ArrayList<Movie> ratedMovies = new ArrayList<>();
+    /** Adds all the non-banned movies to the User's current list and displays them*/
     public void showUser() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode errorOut = mapper.createObjectNode();
@@ -49,7 +49,7 @@ public final class User {
         }
         output.add(errorOut);
     }
-    /** Displays the current user along with all their current movies without adding any*/
+    /** Displays the current user along with all their current movies without adding any movies*/
     public void showUserMovies() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode errorOut = mapper.createObjectNode();
@@ -71,7 +71,7 @@ public final class User {
         output.add(errorOut);
     }
     /** Resets the movies of the user and adds all the ones that aren't banned*/
-    public void resetMovies(){
+    public void resetMovies() {
         currentMovies = new ArrayList<>();
         if (currentUser != null) {
             for (Movie movie : movies) {
@@ -95,19 +95,51 @@ public final class User {
         outUser.put("numFreePremiumMovies", numFreePremiumMovies);
         ArrayNode movies = mapper.createArrayNode();
 
-        if (purchasedMovies == null) {
+        if (purchasedMovies.isEmpty()) {
             outUser.set("purchasedMovies", movies);
+        } else {
+            for (Movie movie : purchasedMovies) {
+                movies.add(movie.toNode());
+            }
+            outUser.set("purchasedMovies", movies);
+            movies = mapper.createArrayNode();
         }
-        if (watchedMovies == null) {
+        if (watchedMovies.isEmpty()) {
             outUser.set("watchedMovies", movies);
+        } else {
+            for (Movie movie : watchedMovies) {
+                movies.add(movie.toNode());
+            }
+            outUser.set("watchedMovies", movies);
+            movies = mapper.createArrayNode();
         }
-        if (likedMovies == null) {
+        if (likedMovies.isEmpty()) {
             outUser.set("likedMovies", movies);
+        } else {
+            for (Movie movie : likedMovies) {
+                movies.add(movie.toNode());
+            }
+            outUser.set("likedMovies", movies);
+            movies = mapper.createArrayNode();
         }
-        if (ratedMovies == null) {
+        if (ratedMovies.isEmpty()) {
             outUser.set("ratedMovies", movies);
+        } else {
+            for (Movie movie : ratedMovies) {
+                movies.add(movie.toNode());
+            }
+            outUser.set("ratedMovies", movies);
+            movies = mapper.createArrayNode();
         }
         return outUser;
+    }
+
+    public int getTokensCount() {
+        return tokensCount;
+    }
+
+    public void setTokensCount(final int tokensCount) {
+        this.tokensCount = tokensCount;
     }
 
     public Credentials getCredentials() {
@@ -116,5 +148,45 @@ public final class User {
 
     public void setCredentials(final Credentials credentials) {
         this.credentials = credentials;
+    }
+
+    public int getNumFreePremiumMovies() {
+        return numFreePremiumMovies;
+    }
+
+    public void setNumFreePremiumMovies(final int numFreePremiumMovies) {
+        this.numFreePremiumMovies = numFreePremiumMovies;
+    }
+
+    public ArrayList<Movie> getPurchasedMovies() {
+        return purchasedMovies;
+    }
+
+    public void setPurchasedMovies(final ArrayList<Movie> purchasedMovies) {
+        this.purchasedMovies = purchasedMovies;
+    }
+
+    public ArrayList<Movie> getWatchedMovies() {
+        return watchedMovies;
+    }
+
+    public void setWatchedMovies(final ArrayList<Movie> watchedMovies) {
+        this.watchedMovies = watchedMovies;
+    }
+
+    public ArrayList<Movie> getLikedMovies() {
+        return likedMovies;
+    }
+
+    public void setLikedMovies(final ArrayList<Movie> likedMovies) {
+        this.likedMovies = likedMovies;
+    }
+
+    public ArrayList<Movie> getRatedMovies() {
+        return ratedMovies;
+    }
+
+    public void setRatedMovies(final ArrayList<Movie> ratedMovies) {
+        this.ratedMovies = ratedMovies;
     }
 }

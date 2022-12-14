@@ -26,7 +26,6 @@ public final class Login implements Page {
                 currentUser = user;
                 ObjectMapper mapper = new ObjectMapper();
                 ObjectNode outUser = mapper.createObjectNode();
-//                Integer nothing = null;
                 outUser.set("error", null);
                 ArrayNode movieArray = mapper.createArrayNode();
                 if (currentMovies != null) {
@@ -57,15 +56,8 @@ public final class Login implements Page {
         ObjectNode errorOut = mapper.createObjectNode();
         errorOut.put("error", "Error");
         ArrayNode movieArray = mapper.createArrayNode();
-        if (currentMovies != null) {
-            for (Movie movie : currentMovies) {
-                movieArray.add(movie.toNode());
-            }
-        }
         errorOut.set("currentMoviesList", movieArray);
-
-            errorOut.set("currentUser", null);
-
+        errorOut.set("currentUser", null);
         output.add(errorOut);
         currPage = "unauth";
     }

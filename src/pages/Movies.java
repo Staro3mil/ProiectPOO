@@ -2,8 +2,12 @@ package pages;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import input.*;
+import input.Action;
+import input.Filter;
+import input.Movie;
+import input.Sort;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -37,42 +41,53 @@ public final class Movies implements Page {
         Sort sort = filter.getSort();
         String duration = sort.getDuration();
         String rating = sort.getRating();
-        currentMovies.sort(Comparator.comparingDouble(Movie::getRating));
+      currentMovies.sort(Comparator.comparingDouble(Movie::getRating));
         if (rating.equals("decreasing")) {
-            Collections.sort(currentMovies, Collections.reverseOrder());
+            Collections.reverse(currentMovies);
         }
         currentMovies.sort(Comparator.comparingInt(Movie::getDuration));
         if (duration.equals("decreasing")) {
-            Collections.sort(currentMovies, Collections.reverseOrder());
+            Collections.reverse(currentMovies);
         }
-//        Movie contains = action.getFilters().getContains();
-//        for(Movie movie : currentMovies) {
-//            if (!java.util.Objects.equals(contains, movie)) {
-//                currentMovies.remove(movie);
-//            }
-//        }
-
+        Movie contains = action.getFilters().getContains();
+        for (Movie movie : currentMovies) {
+            if (!movie.equals(contains)) {
+                currentMovies.remove(movie);
+            }
+        }
+        currentUser.showUserMovies();
+        currentUser.resetMovies();
 
     }
-
-    public void seeDetails(Action action){
+    /** Displays details about the specified movie
+     * and allows for actions to be made for said movie */
+    public void seeDetails(final Action action) {
         String movieName = action.getMovie();
-        for(Movie movie : currentMovies) {
+        for (Movie movie : currentMovies) {
             if (movieName.equals(movie.getName())) {
+                ObjectMapper mapper = new ObjectMapper();
+                ObjectNode errorOut = mapper.createObjectNode();
+                errorOut.set("error", null);
+                ArrayNode movies = mapper.createArrayNode();
+                movies.add(movie.toNode());
+                errorOut.set("currentMoviesList", movies);
+                errorOut.set("currentUser", currentUser.toNode());
+                output.add(errorOut);
+                currPage = "see details";
+ //resets the current movies to nothing and adds the movie that was specified in the input
+                currentMovies = new ArrayList<>();
+                currentMovies.add(movie);
                 return;
             }
         }
-        User useraux = new User();
-        useraux.setCredentials(currentUser.getCredentials());
-        currentUser = null;
         error();
-        currentUser = useraux;
     }
+
 
     @Override
     public void onPage(final Action action) {
         String feature = action.getFeature();
-        if (action.getPage()!= null) {
+        if (action.getPage() != null) {
             if (action.getPage().equals("see details")) {
                 seeDetails(action);
                 return;
@@ -99,6 +114,8 @@ public final class Movies implements Page {
                 break;
             case "logout":
                 currPage = "unauth";
+                currentMovies = new ArrayList<>();
+                currentUser = null;
                 break;
             default:
                 error();
@@ -112,18 +129,8 @@ public final class Movies implements Page {
         ObjectNode errorOut = mapper.createObjectNode();
         errorOut.put("error", "Error");
         ArrayNode movieArray = mapper.createArrayNode();
-        if (currentMovies != null) {
-            for (Movie movie : currentMovies) {
-                movieArray.add(movie.toNode());
-            }
-        }
         errorOut.set("currentMoviesList", movieArray);
-        if (currentUser == null) {
-            errorOut.set("currentUser", null);
-        } else {
-            ObjectNode credentials = currentUser.getCredentials().toNode();
-            errorOut.set("currentUser", credentials);
-        }
+        errorOut.set("currentUser", null);
         output.add(errorOut);
     }
 }

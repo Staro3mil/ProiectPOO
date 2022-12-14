@@ -5,8 +5,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import input.*;
-import pages.*;
+import input.Action;
+import input.Input;
+import pages.Auth;
+import pages.Details;
+import pages.Login;
+import pages.Movies;
+import pages.Page;
+import pages.Register;
+import pages.Unauth;
+import pages.Upgrades;
 import static input.Global.currentMovies;
 import static input.Global.output;
 import static input.Global.currPage;
@@ -34,6 +42,7 @@ public class Main {
         pageHandler.put("auth", new Auth());
         pageHandler.put("movies", new Movies());
         pageHandler.put("upgrades", new Upgrades());
+        pageHandler.put("see details", new Details());
 
         for (int i = 0; i < actionList.size(); i++) {
             Action currAction = actionList.get(i);
@@ -41,7 +50,7 @@ public class Main {
             Page currentPage = pageHandler.get(currPage);
             if (type.equals("change page")) {
                 String nextPage = currAction.getPage();
-                if(currPage.equals("movies") && nextPage.equals("see details")){
+                if (currPage.equals("movies") && nextPage.equals("see details")) {
                     currentPage.onPage(currAction);
                 } else {
                     currentPage.changePage(nextPage);

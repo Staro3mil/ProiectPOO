@@ -5,13 +5,12 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import input.Action;
 import input.Credentials;
 import input.User;
-import input.Movie;
 
-import static input.Global.currentMovies;
-import static input.Global.currentUser;
+
 import static input.Global.output;
-import static input.Global.currPage;
 import static input.Global.users;
+import static input.Global.currPage;
+import static input.Global.currentUser;
 
 
 public final class Register implements Page {
@@ -31,6 +30,7 @@ public final class Register implements Page {
         output.add(outUser);
         currentUser = newUser;
         currPage = "auth";
+
     }
     @Override
     public void onPage(final Action action) {
@@ -56,16 +56,8 @@ public final class Register implements Page {
         ObjectNode errorOut = mapper.createObjectNode();
         errorOut.put("error", "Error");
         ArrayNode movieArray = mapper.createArrayNode();
-        if (currentMovies != null) {
-            for (Movie movie : currentMovies) {
-                movieArray.add(movie.toNode());
-            }
-        }
         errorOut.set("currentMoviesList", movieArray);
-
-        String nothing = null;
-        errorOut.put("currentUser", nothing);
-
+        errorOut.set("currentUser", null);
         output.add(errorOut);
         currPage = "unauth";
     }

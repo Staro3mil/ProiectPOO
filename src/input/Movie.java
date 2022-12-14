@@ -17,6 +17,8 @@ public final class Movie {
     private double rating;
     private int numRatings;
 
+    private ArrayList<Double> ratings;
+
     /** Converts the Movie object to an ObjectNode and returns it */
     public ObjectNode toNode() {
         ObjectMapper mapper = new ObjectMapper();
@@ -43,30 +45,6 @@ public final class Movie {
         node.put("rating", rating);
         node.put("numRatings", numRatings);
         return node;
-    }
-
-    public int getNumLikes() {
-        return numLikes;
-    }
-
-    public void setNumLikes(int numLikes) {
-        this.numLikes = numLikes;
-    }
-
-    public double getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
-
-    public int getNumRatings() {
-        return numRatings;
-    }
-
-    public void setNumRatings(int numRatings) {
-        this.numRatings = numRatings;
     }
 
     public String getName() {
@@ -115,5 +93,56 @@ public final class Movie {
 
     public void setCountriesBanned(final ArrayList<String> countriesBanned) {
         this.countriesBanned = countriesBanned;
+    }
+
+    public int getNumLikes() {
+        return numLikes;
+    }
+
+    public void setNumLikes(final int numLikes) {
+        this.numLikes = numLikes;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(final double rating) {
+        this.rating = rating;
+    }
+
+    public int getNumRatings() {
+        return numRatings;
+    }
+
+    public void setNumRatings(final int numRatings) {
+        this.numRatings = numRatings;
+    }
+
+    public ArrayList<Double> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(final ArrayList<Double> ratings) {
+        this.ratings = ratings;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        Movie comparator = (Movie) o;
+        if (comparator.getActors() != null) {
+            for (String actor : this.getActors()) {
+                if (actor.equals(comparator.getActors().get(0))) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

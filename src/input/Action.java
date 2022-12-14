@@ -13,7 +13,7 @@ public class Action {
 
     private int count;
 
-    private int rate;
+    private Double rate;
 
     private String movie;
 
@@ -81,11 +81,11 @@ public class Action {
         this.count = count;
     }
 
-    public final int getRate() {
+    public Double getRate() {
         return rate;
     }
 
-    public final void setRate(final int rate) {
+    public void setRate(Double rate) {
         this.rate = rate;
     }
 }
