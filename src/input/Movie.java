@@ -16,7 +16,6 @@ public final class Movie {
     private int numLikes;
     private double rating;
     private int numRatings;
-
     private ArrayList<Double> ratings;
 
     /** Converts the Movie object to an ObjectNode and returns it */

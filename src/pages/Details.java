@@ -15,14 +15,9 @@ import static input.Global.movies;
 public final class Details implements Page  {
     /** Purchases the movie and adds it to the user's list */
     public void purchaseMovie(final Action action) {
-        String movieName = action.getMovie();
         ArrayList<Movie> movies = currentUser.getPurchasedMovies();
-        Movie purchasedMovie = null;
-        for (Movie movie : currentMovies) {
-            if (movie.getName().equals(movieName)) {
-                purchasedMovie = movie;
-            }
-        }
+        Movie purchasedMovie = currentMovies.get(0);
+
         if (currentUser.getCredentials().getAccountType().equals("premium")) {
             movies.add(purchasedMovie);
             currentUser.setNumFreePremiumMovies(currentUser.getNumFreePremiumMovies() - 1);
@@ -44,7 +39,7 @@ public final class Details implements Page  {
         String movieName = action.getMovie();
         ArrayList<Movie> likedMovies = currentUser.getLikedMovies();
         Movie likedMovie;
-        for (Movie movie : currentUser.getPurchasedMovies()) {
+        for (Movie movie : currentUser.getWatchedMovies()) {
             if (movie.getName().equals(movieName)) {
                 likedMovie = movie;
                 likedMovies.add(likedMovie);
