@@ -67,43 +67,41 @@ public final class User {
         outUser.set("credentials", credentials.toNode());
         outUser.put("tokensCount", tokensCount);
         outUser.put("numFreePremiumMovies", numFreePremiumMovies);
-        ArrayNode movies = mapper.createArrayNode();
-
+        ArrayNode pMovies = mapper.createArrayNode();
+        ArrayNode lMovies = mapper.createArrayNode();
+        ArrayNode wMovies = mapper.createArrayNode();
+        ArrayNode rMovies = mapper.createArrayNode();
         if (purchasedMovies.isEmpty()) {
-            outUser.set("purchasedMovies", movies);
+            outUser.set("purchasedMovies", pMovies);
         } else {
             for (Movie movie : purchasedMovies) {
-                movies.add(movie.toNode());
+                pMovies.add(movie.toNode());
             }
-            outUser.set("purchasedMovies", movies);
-            movies = mapper.createArrayNode();
+            outUser.set("purchasedMovies", pMovies);
         }
         if (watchedMovies.isEmpty()) {
-            outUser.set("watchedMovies", movies);
+            outUser.set("watchedMovies", wMovies);
         } else {
             for (Movie movie : watchedMovies) {
-                movies.add(movie.toNode());
+                wMovies.add(movie.toNode());
             }
-            outUser.set("watchedMovies", movies);
-            movies = mapper.createArrayNode();
+            outUser.set("watchedMovies", wMovies);
         }
         if (likedMovies.isEmpty()) {
-            outUser.set("likedMovies", movies);
+            outUser.set("likedMovies", lMovies);
         } else {
             for (Movie movie : likedMovies) {
-                movies.add(movie.toNode());
+                lMovies.add(movie.toNode());
             }
-            outUser.set("likedMovies", movies);
-            movies = mapper.createArrayNode();
+            outUser.set("likedMovies", lMovies);
         }
         if (ratedMovies.isEmpty()) {
-            outUser.set("ratedMovies", movies);
+            outUser.set("ratedMovies", rMovies);
         } else {
             for (Movie movie : ratedMovies) {
-                movies.add(movie.toNode());
+                rMovies.add(movie.toNode());
             }
-            outUser.set("ratedMovies", movies);
-            movies = mapper.createArrayNode();
+            outUser.set("ratedMovies", rMovies);
         }
         return outUser;
     }

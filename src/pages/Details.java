@@ -85,6 +85,7 @@ public final class Details implements Page  {
                 movies.add(ratedMovie);
                 currentUser.setRatedMovies(movies);
                 rate(movieName, action.getRate());
+                currentUser.showUserMovies();
                 return;
             }
         }

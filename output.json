@@ -408,6 +408,64 @@
   }
 }, {
   "error" : null,
+  "currentMoviesList" : [ {
+    "name" : "My Sassy Girl",
+    "year" : 2005,
+    "duration" : 125,
+    "genres" : [ "Comedy", "Mystery", "Fantasy" ],
+    "actors" : [ "Mabel MacAless", "Iggy MacUchadair", "Arni Harrow", "Reg Kelleher" ],
+    "countriesBanned" : [ "Dominican Republic", "Indonesia", "Japan" ],
+    "numLikes" : 0,
+    "rating" : 3.0,
+    "numRatings" : 1
+  } ],
+  "currentUser" : {
+    "credentials" : {
+      "name" : "Mihail",
+      "password" : "discret",
+      "accountType" : "premium",
+      "country" : "China",
+      "balance" : "1337"
+    },
+    "tokensCount" : 0,
+    "numFreePremiumMovies" : 14,
+    "purchasedMovies" : [ {
+      "name" : "My Sassy Girl",
+      "year" : 2005,
+      "duration" : 125,
+      "genres" : [ "Comedy", "Mystery", "Fantasy" ],
+      "actors" : [ "Mabel MacAless", "Iggy MacUchadair", "Arni Harrow", "Reg Kelleher" ],
+      "countriesBanned" : [ "Dominican Republic", "Indonesia", "Japan" ],
+      "numLikes" : 0,
+      "rating" : 3.0,
+      "numRatings" : 1
+    } ],
+    "watchedMovies" : [ {
+      "name" : "My Sassy Girl",
+      "year" : 2005,
+      "duration" : 125,
+      "genres" : [ "Comedy", "Mystery", "Fantasy" ],
+      "actors" : [ "Mabel MacAless", "Iggy MacUchadair", "Arni Harrow", "Reg Kelleher" ],
+      "countriesBanned" : [ "Dominican Republic", "Indonesia", "Japan" ],
+      "numLikes" : 0,
+      "rating" : 3.0,
+      "numRatings" : 1
+    } ],
+    "likedMovies" : [ ],
+    "ratedMovies" : [ {
+      "name" : "My Sassy Girl",
+      "year" : 2005,
+      "duration" : 125,
+      "genres" : [ "Comedy", "Mystery", "Fantasy" ],
+      "actors" : [ "Mabel MacAless", "Iggy MacUchadair", "Arni Harrow", "Reg Kelleher" ],
+      "countriesBanned" : [ "Dominican Republic", "Indonesia", "Japan" ],
+      "numLikes" : 0,
+      "rating" : 3.0,
+      "numRatings" : 1
+    } ]
+  }
+}, {
+  "error" : null,
   "currentMoviesList" : [ ],
   "currentUser" : {
     "credentials" : {
@@ -728,6 +786,64 @@
     "numLikes" : 0,
     "rating" : 5.0,
     "numRatings" : 1
+  } ],
+  "currentUser" : {
+    "credentials" : {
+      "name" : "Iancu",
+      "password" : "corega",
+      "accountType" : "premium",
+      "country" : "Japan",
+      "balance" : "50"
+    },
+    "tokensCount" : 0,
+    "numFreePremiumMovies" : 14,
+    "purchasedMovies" : [ {
+      "name" : "Lord, Save Us from Your Followers",
+      "year" : 1998,
+      "duration" : 125,
+      "genres" : [ "Comedy", "Western", "Mystery" ],
+      "actors" : [ "Camey Ingold", "Grace Volleth", "Jermaine D'Ruel", "Anselma Saxelby" ],
+      "countriesBanned" : [ "Russia", "Saudi Arabia", "Zimbabwe" ],
+      "numLikes" : 0,
+      "rating" : 5.0,
+      "numRatings" : 1
+    } ],
+    "watchedMovies" : [ {
+      "name" : "Lord, Save Us from Your Followers",
+      "year" : 1998,
+      "duration" : 125,
+      "genres" : [ "Comedy", "Western", "Mystery" ],
+      "actors" : [ "Camey Ingold", "Grace Volleth", "Jermaine D'Ruel", "Anselma Saxelby" ],
+      "countriesBanned" : [ "Russia", "Saudi Arabia", "Zimbabwe" ],
+      "numLikes" : 0,
+      "rating" : 5.0,
+      "numRatings" : 1
+    } ],
+    "likedMovies" : [ ],
+    "ratedMovies" : [ {
+      "name" : "Lord, Save Us from Your Followers",
+      "year" : 1998,
+      "duration" : 125,
+      "genres" : [ "Comedy", "Western", "Mystery" ],
+      "actors" : [ "Camey Ingold", "Grace Volleth", "Jermaine D'Ruel", "Anselma Saxelby" ],
+      "countriesBanned" : [ "Russia", "Saudi Arabia", "Zimbabwe" ],
+      "numLikes" : 0,
+      "rating" : 5.0,
+      "numRatings" : 1
+    } ]
+  }
+}, {
+  "error" : null,
+  "currentMoviesList" : [ {
+    "name" : "Lord, Save Us from Your Followers",
+    "year" : 1998,
+    "duration" : 125,
+    "genres" : [ "Comedy", "Western", "Mystery" ],
+    "actors" : [ "Camey Ingold", "Grace Volleth", "Jermaine D'Ruel", "Anselma Saxelby" ],
+    "countriesBanned" : [ "Russia", "Saudi Arabia", "Zimbabwe" ],
+    "numLikes" : 0,
+    "rating" : 5.0,
+    "numRatings" : 1
   }, {
     "name" : "Take the Money and Run",
     "year" : 2006,
@@ -911,17 +1027,7 @@
       "rating" : 5.0,
       "numRatings" : 1
     } ],
-    "likedMovies" : [ {
-      "name" : "Lord, Save Us from Your Followers",
-      "year" : 1998,
-      "duration" : 125,
-      "genres" : [ "Comedy", "Western", "Mystery" ],
-      "actors" : [ "Camey Ingold", "Grace Volleth", "Jermaine D'Ruel", "Anselma Saxelby" ],
-      "countriesBanned" : [ "Russia", "Saudi Arabia", "Zimbabwe" ],
-      "numLikes" : 0,
-      "rating" : 5.0,
-      "numRatings" : 1
-    } ],
+    "likedMovies" : [ ],
     "ratedMovies" : [ {
       "name" : "Lord, Save Us from Your Followers",
       "year" : 1998,
