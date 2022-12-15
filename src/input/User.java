@@ -45,11 +45,16 @@ public final class User {
         if (currentUser != null) {
             for (Movie movie : movies) {
                 String country = currentUser.getCredentials().getCountry();
+                Boolean banned = false;
                 for (String countryBan : movie.getCountriesBanned()) {
-                    if (!countryBan.equals(country)) {
-                        currentMovies.add(movie);
+                    if (countryBan.equals(country)) {
+                        banned = true;
                     }
                 }
+                if (!banned) {
+                    currentMovies.add(movie);
+                }
+
             }
         }
     }

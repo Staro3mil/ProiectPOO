@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.util.ArrayList;
 
+import static input.Global.movies;
+
 public final class Movie {
     private String name;
     private int year;
@@ -16,7 +18,7 @@ public final class Movie {
     private int numLikes;
     private double rating;
     private int numRatings;
-    private ArrayList<Double> ratings;
+    private ArrayList<Double> ratings = new ArrayList<>();
 
     /** Converts the Movie object to an ObjectNode and returns it */
     public ObjectNode toNode() {
@@ -40,6 +42,17 @@ public final class Movie {
             countriesArray.add(country);
         }
         node.set("countriesBanned", countriesArray);
+        //takes the number of likes, rating and number of ratings
+        // from the global list of movies
+        for (Movie movie : movies) {
+            if (name.equals(movie.getName())) {
+                numLikes = movie.getNumLikes();
+                rating = movie.getRating();
+                numRatings = movie.getNumRatings();
+                break;
+            }
+        }
+
         node.put("numLikes", numLikes);
         node.put("rating", rating);
         node.put("numRatings", numRatings);

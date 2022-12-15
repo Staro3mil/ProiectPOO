@@ -49,12 +49,15 @@ public final class Movies implements Page {
         if (duration.equals("decreasing")) {
             Collections.reverse(currentMovies);
         }
-        Movie contains = action.getFilters().getContains();
-        for (Movie movie : currentMovies) {
-            if (!movie.equals(contains)) {
-                currentMovies.remove(movie);
+        if (action.getFilters().getContains() != null) {
+            Movie contains = action.getFilters().getContains();
+            for (Movie movie : currentMovies) {
+                if (!movie.equals(contains)) {
+                    currentMovies.remove(movie);
+                }
             }
         }
+
         currentUser.showUserMovies();
         currentUser.resetMovies();
 
@@ -127,6 +130,7 @@ public final class Movies implements Page {
     public void error() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode errorOut = mapper.createObjectNode();
+     //   errorOut.put("error", "Movies Error");
         errorOut.put("error", "Error");
         ArrayNode movieArray = mapper.createArrayNode();
         errorOut.set("currentMoviesList", movieArray);

@@ -45,7 +45,8 @@ public final class Auth implements Page {
     public void error() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode errorOut = mapper.createObjectNode();
-        errorOut.put("error", "Error");
+       errorOut.put("error", "Error");
+   //     errorOut.put("error", "Error Auth");
         ArrayNode movieArray = mapper.createArrayNode();
         errorOut.set("currentMoviesList", movieArray);
         errorOut.set("currentUser", null);

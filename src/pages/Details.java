@@ -36,7 +36,7 @@ public final class Details implements Page  {
     }
     /** Likes the movie and adds it to the user's list */
     public void likeMovie(final Action action) {
-        String movieName = action.getMovie();
+        String movieName = currentMovies.get(0).getName();
         ArrayList<Movie> likedMovies = currentUser.getLikedMovies();
         Movie likedMovie;
         for (Movie movie : currentUser.getWatchedMovies()) {
@@ -59,7 +59,7 @@ public final class Details implements Page  {
     }
     /** Watches the movie and adds it to the user's list */
     public void watchMovie(final Action action) {
-        String movieName = action.getMovie();
+        String movieName = currentMovies.get(0).getName();
         ArrayList<Movie> movies = currentUser.getWatchedMovies();
         Movie watchedMovie;
         for (Movie movie : currentUser.getPurchasedMovies()) {
@@ -76,7 +76,7 @@ public final class Details implements Page  {
     }
     /** Rates the movie and adds it to the user's list */
     public void rateMovie(final Action action) {
-        String movieName = action.getMovie();
+        String movieName = currentMovies.get(0).getName();
         ArrayList<Movie> movies = currentUser.getRatedMovies();
         Movie ratedMovie;
         for (Movie movie : currentUser.getWatchedMovies()) {
@@ -105,6 +105,7 @@ public final class Details implements Page  {
                 searchMovie.setRating(sum);
                 searchMovie.setRatings(ratings);
                 searchMovie.setNumRatings(ratings.size());
+                return;
             }
         }
     }
@@ -150,6 +151,7 @@ public final class Details implements Page  {
                 currPage = "unauth";
                 currentMovies = new ArrayList<>();
                 currentUser = null;
+                break;
             default:
                 error();
                 break;
@@ -160,6 +162,7 @@ public final class Details implements Page  {
     public void error() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode errorOut = mapper.createObjectNode();
+        //errorOut.put("error", "Error Details");
         errorOut.put("error", "Error");
         ArrayNode movieArray = mapper.createArrayNode();
         errorOut.set("currentMoviesList", movieArray);
