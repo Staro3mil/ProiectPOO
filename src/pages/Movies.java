@@ -39,17 +39,21 @@ public final class Movies implements Page {
         }
         Filter filter = action.getFilters();
         Sort sort = filter.getSort();
-        String duration = sort.getDuration();
-        String rating = sort.getRating();
-        Collections.sort(currentMovies, new MovieComparator());
-//      currentMovies.sort(Comparator.comparingDouble(Movie::getRating));
-//        if (rating.equals("decreasing")) {
-//            Collections.reverse(currentMovies);
-//        }
-//        currentMovies.sort(Comparator.comparingInt(Movie::getDuration));
-//        if (duration.equals("decreasing")) {
-//            Collections.reverse(currentMovies);
-//        }
+        String duration;
+        String rating;
+        if (sort.getDuration() == null) {
+             duration = null;
+        } else {
+             duration = sort.getDuration();
+        }
+        if (sort.getRating() == null) {
+             rating = null;
+        } else {
+             rating = sort.getRating();
+        }
+
+        Collections.sort(currentMovies, new MovieComparator(duration, rating));
+
         if (action.getFilters().getContains() != null) {
             Movie contains = action.getFilters().getContains();
             for (Movie movie : currentMovies) {

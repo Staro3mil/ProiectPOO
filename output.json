@@ -1285,16 +1285,6 @@
     "rating" : 0.0,
     "numRatings" : 0
   }, {
-    "name" : "Lord, Save Us from Your Followers",
-    "year" : 1998,
-    "duration" : 125,
-    "genres" : [ "Comedy", "Western", "Mystery" ],
-    "actors" : [ "Camey Ingold", "Grace Volleth", "Jermaine D'Ruel", "Anselma Saxelby" ],
-    "countriesBanned" : [ "Russia", "Saudi Arabia", "Zimbabwe" ],
-    "numLikes" : 0,
-    "rating" : 5.0,
-    "numRatings" : 1
-  }, {
     "name" : "My Sassy Girl",
     "year" : 2005,
     "duration" : 125,
@@ -1303,6 +1293,16 @@
     "countriesBanned" : [ "Dominican Republic", "Indonesia", "Japan" ],
     "numLikes" : 0,
     "rating" : 3.0,
+    "numRatings" : 1
+  }, {
+    "name" : "Lord, Save Us from Your Followers",
+    "year" : 1998,
+    "duration" : 125,
+    "genres" : [ "Comedy", "Western", "Mystery" ],
+    "actors" : [ "Camey Ingold", "Grace Volleth", "Jermaine D'Ruel", "Anselma Saxelby" ],
+    "countriesBanned" : [ "Russia", "Saudi Arabia", "Zimbabwe" ],
+    "numLikes" : 0,
+    "rating" : 5.0,
     "numRatings" : 1
   }, {
     "name" : "The Empty Hours",
