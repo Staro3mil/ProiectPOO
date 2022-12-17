@@ -4,10 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.ArrayList;
-import static input.Global.currentMovies;
+
 import static input.Global.currentUser;
-import static input.Global.output;
+import static input.Global.currentMovies;
 import static input.Global.movies;
+import static input.Global.output;
+//import static input.Global.errors;
 
 public final class User {
     private Credentials credentials;
@@ -37,6 +39,8 @@ public final class User {
             ObjectNode cred = currentUser.toNode();
             errorOut.set("currentUser", cred);
         }
+//        errors++;
+//        errorOut.put("number", errors);
         output.add(errorOut);
     }
     /** Resets the movies of the user and adds all the ones that aren't banned*/
@@ -71,6 +75,9 @@ public final class User {
         ArrayNode lMovies = mapper.createArrayNode();
         ArrayNode wMovies = mapper.createArrayNode();
         ArrayNode rMovies = mapper.createArrayNode();
+        //Goes through each array of Purchased Movies, Liked Movies etc.
+        //in order to convert each movie into a node then add it to the arrayNode
+        //respective to each kind of movie array
         if (purchasedMovies.isEmpty()) {
             outUser.set("purchasedMovies", pMovies);
         } else {

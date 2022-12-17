@@ -1,17 +1,19 @@
-package pages;
+package comparator;
 import java.util.Comparator;
 import input.Movie;
 
 
-public class MovieComparator implements Comparator<Movie> {
+public final class MovieComparator implements Comparator<Movie> {
+    //variables can be either "blank", "decreasing" or "increasing"
     private String rating;
     private String duration;
 
-    public MovieComparator (String duration, String rating) {
+    public MovieComparator(final String duration, final String rating) {
         this.rating = rating;
         this.duration = duration;
     }
-    private int compareInt(int x, int y) {
+    //Compares two variables of type int
+    private int compareInt(final int x, final int y) {
         if (x > y) {
             return 1;
         }
@@ -20,7 +22,8 @@ public class MovieComparator implements Comparator<Movie> {
         }
         return 0;
     }
-    private int compareDouble(double x, double y) {
+    //Compares two variables of type double
+    private int compareDouble(final double x, final double y) {
         if (x > y) {
             return 1;
         }
@@ -29,9 +32,12 @@ public class MovieComparator implements Comparator<Movie> {
         }
         return 0;
     }
+    //Overrides the compare method as to sort by duration and rating
     @Override
-    public int compare(Movie o1, Movie o2) {
-        if (duration.equals(null)) {
+    public int compare(final Movie o1, final Movie o2) {
+        //If there is no duration then it sorts by rating and
+        // if the rating is in decreasing order then it swaps the values of o1 and o2
+        if (duration.equals("blank")) {
             double rating1 = o1.getRating();
             double rating2 = o2.getRating();
             if (rating.equals("decreasing")) {
@@ -42,7 +48,8 @@ public class MovieComparator implements Comparator<Movie> {
             int value2 = compareDouble(rating1, rating2);
             return value2;
         }
-        if (rating.equals(null)) {
+        //Same thing as before except now rating is blank
+        if (rating.equals("blank")) {
             int duration1 = o1.getDuration();
             int duration2 = o2.getDuration();
             if (duration.equals("decreasing")) {
@@ -53,6 +60,8 @@ public class MovieComparator implements Comparator<Movie> {
             int value1 = compareInt(duration1, duration2);
             return value1;
         }
+        //If both duration and rating are not blank it starts by sorting by duration then
+        // if the duration is equal it sorts by rating
         int duration1 = o1.getDuration();
         int duration2 = o2.getDuration();
         if (duration.equals("decreasing")) {

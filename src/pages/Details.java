@@ -11,19 +11,37 @@ import static input.Global.currentUser;
 import static input.Global.output;
 import static input.Global.currPage;
 import static input.Global.movies;
+//import static input.Global.errors;
+
 
 public final class Details implements Page  {
     /** Purchases the movie and adds it to the user's list */
     public void purchaseMovie(final Action action) {
         ArrayList<Movie> movies = currentUser.getPurchasedMovies();
         Movie purchasedMovie = currentMovies.get(0);
-
+        //Checks if the user is premium
         if (currentUser.getCredentials().getAccountType().equals("premium")) {
+            //Checks if the user has free movies to use
+            if (currentUser.getNumFreePremiumMovies() <= 0) {
+                //Checks if the user has enough tokens to buy a movie
+                // in case he has no more fee movies
+                if (currentUser.getTokensCount() < 2) {
+                    error();
+                    return;
+                }
+                movies.add(purchasedMovie);
+                currentUser.setTokensCount(currentUser.getTokensCount() - 2);
+                currentUser.setPurchasedMovies(movies);
+                currentUser.showUserMovies();
+                return;
+            }
             movies.add(purchasedMovie);
             currentUser.setNumFreePremiumMovies(currentUser.getNumFreePremiumMovies() - 1);
             currentUser.setPurchasedMovies(movies);
             currentUser.showUserMovies();
         } else {
+            //If a user is not premium then it checks for token balance and
+            // adds the movie to the list of purchased movies if the user has at least 2 tokens
             if (currentUser.getTokensCount() < 2) {
                 error();
                 return;
@@ -39,13 +57,15 @@ public final class Details implements Page  {
         String movieName = currentMovies.get(0).getName();
         ArrayList<Movie> likedMovies = currentUser.getLikedMovies();
         Movie likedMovie;
+        //Looks in the list of watched movies for the movie that the user wants to like
+        //if there is no movie it will return an error
         for (Movie movie : currentUser.getWatchedMovies()) {
             if (movie.getName().equals(movieName)) {
                 likedMovie = movie;
                 likedMovies.add(likedMovie);
                 currentUser.setLikedMovies(likedMovies);
                 //Looks for the movie that was liked in the list of total movies
-                // and adds one to the like count
+                // and adds +1 to the like count
                 for (Movie liked : movies) {
                     if (liked.getName().equals(movieName)) {
                         liked.setNumLikes(liked.getNumLikes() + 1);
@@ -62,6 +82,8 @@ public final class Details implements Page  {
         String movieName = currentMovies.get(0).getName();
         ArrayList<Movie> movies = currentUser.getWatchedMovies();
         Movie watchedMovie;
+        //Looks in the list of purchased movies for the movie that the user wants to watch
+        //if there is no movie it will return an error
         for (Movie movie : currentUser.getPurchasedMovies()) {
             if (movie.getName().equals(movieName)) {
                 watchedMovie = movie;
@@ -76,9 +98,16 @@ public final class Details implements Page  {
     }
     /** Rates the movie and adds it to the user's list */
     public void rateMovie(final Action action) {
+        //Checks if the rating is valid
+        if (action.getRate() > 5 || action.getRate() < 0) {
+            error();
+            return;
+        }
         String movieName = currentMovies.get(0).getName();
         ArrayList<Movie> movies = currentUser.getRatedMovies();
         Movie ratedMovie;
+        //Looks in the list of watched movies for the movie that the user wants to rate
+        //if there is no movie it will return an error
         for (Movie movie : currentUser.getWatchedMovies()) {
             if (movie.getName().equals(movieName)) {
                 ratedMovie = movie;
@@ -93,16 +122,23 @@ public final class Details implements Page  {
     }
     /** Adjusts the rating of a movie */
     public void rate(final String movie, final double rate) {
+        //Looks for the movie in the global list of movies
         for (Movie searchMovie : movies) {
             String movieName = searchMovie.getName();
+            //Checks if the name of the movie matches the one we want to rate
             if (movieName.equals(movie)) {
+                //Gets the array of already existing ratings
                 ArrayList<Double> ratings = searchMovie.getRatings();
+                //Adds the new rating
                 ratings.add(rate);
                 Double sum = 0.0;
+                //Calculates the average of all the ratings in the array
                 for (Double rates : ratings) {
                     sum += rates;
                 }
                 sum = sum / ratings.size();
+                //Sets the new array of ratings, the new rating of the movie
+                // and the new number of ratings
                 searchMovie.setRating(sum);
                 searchMovie.setRatings(ratings);
                 searchMovie.setNumRatings(ratings.size());
@@ -168,6 +204,8 @@ public final class Details implements Page  {
         ArrayNode movieArray = mapper.createArrayNode();
         errorOut.set("currentMoviesList", movieArray);
         errorOut.set("currentUser", null);
+//        errors++;
+//        errorOut.put("number", errors);
         output.add(errorOut);
     }
 }

@@ -11,6 +11,7 @@ import static input.Global.currentMovies;
 import static input.Global.currentUser;
 import static input.Global.output;
 import static input.Global.currPage;
+//import static input.Global.errors;
 
 public final class Auth implements Page {
 
@@ -50,6 +51,8 @@ public final class Auth implements Page {
         ArrayNode movieArray = mapper.createArrayNode();
         errorOut.set("currentMoviesList", movieArray);
         errorOut.set("currentUser", null);
+//        errors++;
+//        errorOut.put("number", errors);
         output.add(errorOut);
 
     }

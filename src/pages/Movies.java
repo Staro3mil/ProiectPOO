@@ -1,4 +1,5 @@
 package pages;
+import comparator.MovieComparator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -9,13 +10,14 @@ import input.Sort;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 import static input.Global.currentMovies;
 import static input.Global.currentUser;
 import static input.Global.output;
 import static input.Global.currPage;
 import static input.Global.movies;
+//import static input.Global.errors;
+
 
 public final class Movies implements Page {
     /** Searches for a movie in the list of current movies
@@ -29,7 +31,6 @@ public final class Movies implements Page {
             }
         }
         currentUser.showUserMovies();
-        currentUser.resetMovies();
     }
     /** Filters the movies*/
     public void filterMovie(final Action action) {
@@ -41,31 +42,36 @@ public final class Movies implements Page {
         Sort sort = filter.getSort();
         String duration;
         String rating;
-        if (sort.getDuration() == null) {
-             duration = null;
-        } else {
-             duration = sort.getDuration();
-        }
-        if (sort.getRating() == null) {
-             rating = null;
-        } else {
-             rating = sort.getRating();
+        //checks if the sort property is empty then checks duration and rating as well
+        if (sort != null) {
+            if (sort.getDuration() == null) {
+                duration = "blank";
+            } else {
+                duration = sort.getDuration();
+            }
+            if (sort.getRating() == null) {
+                rating = "blank";
+            } else {
+                rating = sort.getRating();
+            }
+            //Uses the overwritten compare method of the MovieComparator class
+            // to sort the current list of Movies
+            Collections.sort(currentMovies, new MovieComparator(duration, rating));
         }
 
-        Collections.sort(currentMovies, new MovieComparator(duration, rating));
 
         if (action.getFilters().getContains() != null) {
             Movie contains = action.getFilters().getContains();
+            ArrayList<Movie> filteredMovies = new ArrayList<>();
             for (Movie movie : currentMovies) {
-                if (!movie.equals(contains)) {
-                    currentMovies.remove(movie);
+                if (movie.equals(contains)) {
+                    filteredMovies.add(movie);
                 }
             }
+            currentMovies = filteredMovies;
         }
 
         currentUser.showUserMovies();
-        currentUser.resetMovies();
-
     }
     /** Displays details about the specified movie
      * and allows for actions to be made for said movie */
@@ -103,9 +109,11 @@ public final class Movies implements Page {
         }
         switch (feature) {
             case "search":
+                currentUser.resetMovies();
                 searchMovie(action);
                 break;
             case "filter":
+                currentUser.resetMovies();
                 filterMovie(action);
                 break;
             default:
@@ -118,12 +126,17 @@ public final class Movies implements Page {
     public void changePage(final String nextPage) {
         switch (nextPage) {
             case "homepage":
-                currPage = "movies";
+                currPage = "auth";
+                currentUser.resetMovies();
                 break;
             case "logout":
                 currPage = "unauth";
                 currentMovies = new ArrayList<>();
                 currentUser = null;
+                break;
+            case "movies":
+                currentUser.resetMovies();
+                currentUser.showUserMovies();
                 break;
             default:
                 error();

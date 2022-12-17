@@ -12,12 +12,15 @@ public final class Movie {
     private String name;
     private int year;
     private int duration;
-    private ArrayList<String> genres;
+    private ArrayList<String> genres = new ArrayList<>();
     private ArrayList<String> actors;
     private ArrayList<String> countriesBanned;
     private int numLikes;
     private double rating;
     private int numRatings;
+    private ArrayList<String> genre = new ArrayList<>();
+    //Each movie has an array of ratings from previous users
+    // which is used to calculate the rating
     private ArrayList<Double> ratings = new ArrayList<>();
 
     /** Converts the Movie object to an ObjectNode and returns it */
@@ -28,10 +31,18 @@ public final class Movie {
         node.put("year", year);
         node.put("duration", duration);
         ArrayNode genreArray = mapper.createArrayNode();
-        for (String genre : genres) {
-            genreArray.add(genre);
+        //Checks to see if the genre array is empty,
+        // if it is then it uses the genres array instead
+        //if not then it takes the first element of the genre array
+        if (genre.isEmpty()) {
+            for (String genreMultiple : genres) {
+                genreArray.add(genreMultiple);
+            }
+            node.set("genres", genreArray);
+        } else {
+            node.put("genre", genre.get(0));
         }
-        node.set("genres", genreArray);
+
         ArrayNode actorsArray = mapper.createArrayNode();
         for (String actor : actors) {
             actorsArray.add(actor);
@@ -42,8 +53,8 @@ public final class Movie {
             countriesArray.add(country);
         }
         node.set("countriesBanned", countriesArray);
-        //takes the number of likes, rating and number of ratings
-        // from the global list of movies
+        //Takes the number of likes, rating and number of ratings
+        // from the global list of movies instead of the current list of movies
         for (Movie movie : movies) {
             if (name.equals(movie.getName())) {
                 numLikes = movie.getNumLikes();
@@ -139,18 +150,50 @@ public final class Movie {
         this.ratings = ratings;
     }
 
+    public ArrayList<String> getGenre() {
+        return genre;
+    }
+
+    public void setGenre(final ArrayList<String> genre) {
+        this.genre = genre;
+    }
+
     @Override
     public boolean equals(final Object o) {
         Movie comparator = (Movie) o;
+        boolean matchActor = false;
+        boolean matchGenre = false;
+        boolean matchGenres = false;
         if (comparator.getActors() != null) {
             for (String actor : this.getActors()) {
                 if (actor.equals(comparator.getActors().get(0))) {
-                    return true;
+                    matchActor = true;
                 }
             }
-            return false;
+        } else {
+            matchActor = true;
         }
-        return false;
+        if (!comparator.getGenre().isEmpty()) {
+            for (String genreSingle : this.getGenres()) {
+                if (genreSingle.equals(comparator.getGenre().get(0))) {
+                    matchGenre = true;
+                }
+            }
+        } else {
+            matchGenre = true;
+        }
+        if (!comparator.getGenres().isEmpty()) {
+            for (String genreMultiple : this.getGenres()) {
+                if (genreMultiple.equals(comparator.getGenres().get(0))) {
+                    matchGenres = true;
+                }
+            }
+        } else {
+            matchGenres = true;
+        }
+
+
+        return (matchActor && matchGenre && matchGenres);
     }
 
     @Override

@@ -503,7 +503,7 @@
       "feature": "filter",
       "filters": {
         "contains": {
-          "genre": [
+          "genres": [
             "Horror"
           ],
           "actors": [

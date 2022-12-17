@@ -11,30 +11,27 @@ import static input.Global.output;
 import static input.Global.users;
 import static input.Global.currPage;
 import static input.Global.currentUser;
+//import static input.Global.errors;
+
 
 
 public final class Register implements Page {
     /** Checks if the user already exists in the list of already existing users
      * and then adds them to the list */
     public void registerUser(final Credentials registerDetails) {
+        //Adds the new user to the list of global users and displays them in the output
         User newUser = new User();
         newUser.setCredentials(registerDetails);
         users.add(newUser);
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectNode outUser = mapper.createObjectNode();
-        Integer nothing = null;
-        outUser.put("error", nothing);
-        ArrayNode movieArray = mapper.createArrayNode();
-        outUser.set("currentMoviesList", movieArray);
-        outUser.set("currentUser", newUser.toNode());
-        output.add(outUser);
         currentUser = newUser;
+        currentUser.showUserMovies();
         currPage = "auth";
 
     }
     @Override
     public void onPage(final Action action) {
         String newName = action.getCredentials().getName();
+        //Checks if a user with the same name already exists
         for (User existingUser: users) {
             String name = existingUser.getCredentials().getName();
             if (newName.equals(name)) {
@@ -58,6 +55,8 @@ public final class Register implements Page {
         ArrayNode movieArray = mapper.createArrayNode();
         errorOut.set("currentMoviesList", movieArray);
         errorOut.set("currentUser", null);
+//        errors++;
+//        errorOut.put("number", errors);
         output.add(errorOut);
         currPage = "unauth";
     }

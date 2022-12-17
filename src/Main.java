@@ -21,7 +21,7 @@ import static input.Global.currPage;
 import static input.Global.movies;
 import static input.Global.users;
 import static input.Global.currentUser;
-
+//import static input.Global.errors;
 
 public class Main {
     /** Does the thing */
@@ -35,7 +35,11 @@ public class Main {
         currentMovies = new ArrayList<>();
         currentUser = null;
         currPage = "unauth";
+        //Creates a new HashMap of pairs of Strings and Page objects
+        //Each string is associated with its corresponding Page object
+        //Eg. the "login" string points to a Login type object
         Map<String, Page> pageHandler = new HashMap<>();
+        //Adds every page and its corresponding string to the HashMap
         pageHandler.put("login", new Login());
         pageHandler.put("unauth", new Unauth());
         pageHandler.put("register", new Register());
@@ -47,16 +51,26 @@ public class Main {
         for (int i = 0; i < actionList.size(); i++) {
             Action currAction = actionList.get(i);
             String type = currAction.getType();
+            //Checks to see which page we are currently on and
+            // looks for the string in the pageHandler HashMap
+            //it then grabs the object associated with that string and
+            // assigns it to the currentPage variable
             Page currentPage = pageHandler.get(currPage);
             if (type.equals("change page")) {
+                //if we want to change the page we check first if we are on the movies page and
+                // want to change to "see details". If we are then
+                // we call the onPage method instead of the changePage method
                 String nextPage = currAction.getPage();
                 if (currPage.equals("movies") && nextPage.equals("see details")) {
                     currentPage.onPage(currAction);
                 } else {
+                    //Otherwise we simply call the changePage method
                     currentPage.changePage(nextPage);
                 }
 
             } else {
+                //And if it's not a change page action it can only be a onPage action,
+                //so we call that method
                 currentPage.onPage(currAction);
             }
 
@@ -68,6 +82,7 @@ public class Main {
 
         ObjectWriter objectWriter = mapper.writerWithDefaultPrettyPrinter();
         objectWriter.writeValue(new File(args[1]), output);
+        //Also creates an output.json file to check our output for debugging purposes
         objectWriter.writeValue(new File("output.json"), output);
     }
 }

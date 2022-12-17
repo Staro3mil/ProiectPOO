@@ -1,6 +1,6 @@
 package input;
 
-public class Action {
+public final class Action {
     private String type;
     private String page;
     private String feature;
@@ -21,63 +21,63 @@ public class Action {
         return movie;
     }
 
-    public void setMovie(String movie) {
+    public void setMovie(final String movie) {
         this.movie = movie;
     }
 
-    public final String getType() {
+    public String getType() {
         return type;
     }
 
-    public final void setType(final String type) {
+    public void setType(final String type) {
         this.type = type;
     }
 
-    public final String getPage() {
+    public String getPage() {
         return page;
     }
 
-    public final void setPage(final String page) {
+    public void setPage(final String page) {
         this.page = page;
     }
 
-    public final String getFeature() {
+    public String getFeature() {
         return feature;
     }
 
-    public final void setFeature(final String feature) {
+    public void setFeature(final String feature) {
         this.feature = feature;
     }
 
-    public final Credentials getCredentials() {
+    public Credentials getCredentials() {
         return credentials;
     }
 
-    public final void setCredentials(final Credentials credentials) {
+    public void setCredentials(final Credentials credentials) {
         this.credentials = credentials;
     }
 
-    public final String getStartsWith() {
+    public String getStartsWith() {
         return startsWith;
     }
 
-    public final void setStartsWith(final String startsWith) {
+    public void setStartsWith(final String startsWith) {
         this.startsWith = startsWith;
     }
 
-    public final Filter getFilters() {
+    public Filter getFilters() {
         return filters;
     }
 
-    public final void setFilters(final Filter filters) {
+    public void setFilters(final Filter filters) {
         this.filters = filters;
     }
 
-    public final int getCount() {
+    public int getCount() {
         return count;
     }
 
-    public final void setCount(final int count) {
+    public void setCount(final int count) {
         this.count = count;
     }
 
@@ -85,7 +85,7 @@ public class Action {
         return rate;
     }
 
-    public void setRate(Double rate) {
+    public void setRate(final Double rate) {
         this.rate = rate;
     }
 }

@@ -5,12 +5,12 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import input.Action;
 import input.Credentials;
 import input.User;
-import input.Movie;
-import static input.Global.currentMovies;
 import static input.Global.currentUser;
 import static input.Global.output;
 import static input.Global.currPage;
 import static input.Global.users;
+//import static input.Global.errors;
+
 
 
 public final class Login implements Page {
@@ -22,20 +22,12 @@ public final class Login implements Page {
             String existingPassword = credential.getPassword();
             String loginName = loginDetails.getName();
             String loginPassword = loginDetails.getPassword();
+            //Checks if the name and password match an existing user
             if (existingName.equals(loginName) && loginPassword.equals(existingPassword)) {
+                //Changes the current user, displays them and
+                // changes the current page to the Authenticated Homepage
                 currentUser = user;
-                ObjectMapper mapper = new ObjectMapper();
-                ObjectNode outUser = mapper.createObjectNode();
-                outUser.set("error", null);
-                ArrayNode movieArray = mapper.createArrayNode();
-                if (currentMovies != null) {
-                    for (Movie movie : currentMovies) {
-                        movieArray.add(movie.toNode());
-                    }
-                }
-                outUser.set("currentMoviesList", movieArray);
-                outUser.set("currentUser", currentUser.toNode());
-                output.add(outUser);
+                currentUser.showUserMovies();
                 currPage = "auth";
                 return;
             }
@@ -58,6 +50,8 @@ public final class Login implements Page {
         ArrayNode movieArray = mapper.createArrayNode();
         errorOut.set("currentMoviesList", movieArray);
         errorOut.set("currentUser", null);
+//        errors++;
+//        errorOut.put("number", errors);
         output.add(errorOut);
         currPage = "unauth";
     }
