@@ -19,7 +19,7 @@ public final class User {
     private ArrayList<Movie> watchedMovies = new ArrayList<>();
     private ArrayList<Movie> likedMovies = new ArrayList<>();
     private ArrayList<Movie> ratedMovies = new ArrayList<>();
-    private ArrayList<String> notifications = new ArrayList<>();
+    private ArrayList<Notification> notifications = new ArrayList<>();
     private ArrayList<String> subscriptions = new ArrayList<>();
 
     /** Displays the current user along with all their current movies without adding any movies*/
@@ -122,6 +122,22 @@ public final class User {
             outUser.set("purchasedMovies", pMovies);
         }
         return outUser;
+    }
+
+    public ArrayList<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(final ArrayList<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
+    public ArrayList<String> getSubscriptions() {
+        return subscriptions;
+    }
+
+    public void setSubscriptions(final ArrayList<String> subscriptions) {
+        this.subscriptions = subscriptions;
     }
 
     public int getTokensCount() {

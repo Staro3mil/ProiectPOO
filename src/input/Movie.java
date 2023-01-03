@@ -10,7 +10,7 @@ import static input.Global.movies;
 
 public final class Movie {
     private String name;
-    private int year;
+    private String year;
     private int duration;
     private ArrayList<String> genres = new ArrayList<>();
     private ArrayList<String> actors;
@@ -78,11 +78,11 @@ public final class Movie {
         this.name = name;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(final int year) {
+    public void setYear(final String year) {
         this.year = year;
     }
 

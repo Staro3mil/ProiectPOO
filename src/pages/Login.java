@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import input.Action;
 import input.Credentials;
-import input.Global;
 import input.User;
 
 import java.util.ArrayList;

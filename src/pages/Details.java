@@ -147,6 +147,19 @@ public final class Details implements Page  {
             }
         }
     }
+    /** Subscribes to a genre **/
+    public void subscribeGenre(final Action action) {
+        for (String genre: currentMovies.get(0).getGenres()) {
+            if (genre.equals(action.getSubscribedGenre())) {
+                ArrayList<String> subscriptions = currentUser.getSubscriptions();
+                subscriptions.add(genre);
+                currentUser.setSubscriptions(subscriptions);
+                return;
+            }
+        }
+        error();
+    }
+
 
 
     @Override
@@ -165,6 +178,8 @@ public final class Details implements Page  {
             case "rate":
                 rateMovie(action);
                 break;
+            case "subscribe":
+                subscribeGenre(action);
             default:
                 error();
                 break;

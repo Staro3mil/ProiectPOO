@@ -17,6 +17,26 @@ public final class Action {
 
     private String movie;
 
+    private String subscribedGenre;
+
+    private Movie addedMovie;
+
+    public Movie getAddedMovie() {
+        return addedMovie;
+    }
+
+    public void setAddedMovie(Movie addedMovie) {
+        this.addedMovie = addedMovie;
+    }
+
+    public String getSubscribedGenre() {
+        return subscribedGenre;
+    }
+
+    public void setSubscribedGenre(String subscribedGenre) {
+        this.subscribedGenre = subscribedGenre;
+    }
+
     public String getMovie() {
         return movie;
     }

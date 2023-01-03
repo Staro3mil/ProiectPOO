@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import input.Action;
+import input.Global;
 import input.Input;
 import pages.Auth;
 import pages.Details;
@@ -15,8 +16,12 @@ import pages.Page;
 import pages.Register;
 import pages.Unauth;
 import pages.Upgrades;
-
-import static input.Global.*;
+import static input.Global.users;
+import static input.Global.output;
+import static input.Global.movies;
+import static input.Global.currentMovies;
+import static input.Global.currentUser;
+import static input.Global.currPage;
 //import static input.Global.errors;
 
 public class Main {
@@ -24,6 +29,7 @@ public class Main {
     public static void main(final String[] args) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         Input input = mapper.readValue(new File(args[0]), Input.class);
+        Global global = new Global();
         output = mapper.createArrayNode();
         ArrayList<Action> actionList = input.getActions();
         users = input.getUsers();
@@ -52,24 +58,36 @@ public class Main {
             //it then grabs the object associated with that string and
             // assigns it to the currentPage variable
             Page currentPage = pageHandler.get(currPage);
-            if (type.equals("change page")) {
-                //if we want to change the page we check first if we are on the movies page and
-                // want to change to "see details". If we are then
-                // we call the onPage method instead of the changePage method
-                String nextPage = currAction.getPage();
-                if (currPage.equals("movies") && nextPage.equals("see details")) {
+            switch (type) {
+                case "change page":
+                    // if we want to change the page we check first if we are on the movies page and
+                    // want to change to "see details". If we are then
+                    // we call the onPage method instead of the changePage method
+                    String nextPage = currAction.getPage();
+                    if (currPage.equals("movies") && nextPage.equals("see details")) {
+                        currentPage.onPage(currAction);
+                    } else {
+                        //Otherwise we check if the user wants to return to a
+                        // previous page or change to a new one
+                        currentPage.changePage(nextPage);
+                    }
+                    break;
+                case "back":
+                    currentPage.changePage(type);
+                    break;
+                case "on page":
                     currentPage.onPage(currAction);
-                } else {
-                    //Otherwise we simply call the changePage method
-                    currentPage.changePage(nextPage);
-                }
-
-            } else {
-                //And if it's not a change page action it can only be a onPage action,
-                //so we call that method
-                currentPage.onPage(currAction);
+                    break;
+                case "database":
+                    if (currAction.getFeature().equals("add")) {
+                        global.addData(currAction.getAddedMovie());
+                    } else {
+                        return;
+                    }
+                    break;
+                default:
+                    break;
             }
-
 
         }
 
