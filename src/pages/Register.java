@@ -7,10 +7,13 @@ import input.Credentials;
 import input.User;
 
 
+import java.util.ArrayList;
+
 import static input.Global.output;
 import static input.Global.users;
 import static input.Global.currPage;
 import static input.Global.currentUser;
+import static input.Global.pages;
 //import static input.Global.errors;
 
 
@@ -25,8 +28,9 @@ public final class Register implements Page {
         users.add(newUser);
         currentUser = newUser;
         currentUser.showUserMovies();
+        pages = new ArrayList<>();
+        pages.add(currPage);
         currPage = "auth";
-
     }
     @Override
     public void onPage(final Action action) {

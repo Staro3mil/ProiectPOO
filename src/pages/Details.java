@@ -11,6 +11,7 @@ import static input.Global.currentUser;
 import static input.Global.output;
 import static input.Global.currPage;
 import static input.Global.movies;
+import static input.Global.pages;
 //import static input.Global.errors;
 
 
@@ -174,20 +175,32 @@ public final class Details implements Page  {
     public void changePage(final String nextPage) {
         switch (nextPage) {
             case "auth":
+                pages.add(currPage);
                 currPage = "auth";
                 break;
             case "movies":
+                pages.add(currPage);
                 currPage = "movies";
                 currentUser.resetMovies();
                 currentUser.showUserMovies();
                 break;
             case "upgrades":
+                pages.add(currPage);
                 currPage = "upgrades";
                 break;
             case "logout":
+                pages.add(currPage);
                 currPage = "unauth";
                 currentMovies = new ArrayList<>();
                 currentUser = null;
+                pages = new ArrayList<>();
+                break;
+            case "back":
+                int n = pages.size();
+                String page = pages.get(n);
+                pages.remove(n);
+                changePage(page);
+                pages.remove(n);
                 break;
             default:
                 error();

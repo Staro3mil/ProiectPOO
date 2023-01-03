@@ -15,12 +15,8 @@ import pages.Page;
 import pages.Register;
 import pages.Unauth;
 import pages.Upgrades;
-import static input.Global.currentMovies;
-import static input.Global.output;
-import static input.Global.currPage;
-import static input.Global.movies;
-import static input.Global.users;
-import static input.Global.currentUser;
+
+import static input.Global.*;
 //import static input.Global.errors;
 
 public class Main {

@@ -5,9 +5,12 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import input.Action;
 
+import java.util.ArrayList;
+
 import static input.Global.currentUser;
 import static input.Global.currPage;
 import static input.Global.output;
+import static input.Global.pages;
 
 public final class Upgrades implements Page {
     /** Buys tokens and substracts the amount from the current User's balance*/
@@ -59,6 +62,7 @@ public final class Upgrades implements Page {
     public void changePage(final String nextPage) {
         switch (nextPage) {
             case "movies":
+                pages.add(currPage);
                 currPage = "movies";
                 currentUser.resetMovies();
                 currentUser.showUserMovies();
@@ -66,6 +70,7 @@ public final class Upgrades implements Page {
             case "logout":
                 currPage = "unauth";
                 currentUser = null;
+                pages = new ArrayList<>();
                 break;
             default:
                 error();

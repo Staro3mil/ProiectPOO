@@ -4,11 +4,16 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import input.Action;
 import input.Credentials;
+import input.Global;
 import input.User;
+
+import java.util.ArrayList;
+
 import static input.Global.currentUser;
 import static input.Global.output;
 import static input.Global.currPage;
 import static input.Global.users;
+import static input.Global.pages;
 //import static input.Global.errors;
 
 
@@ -29,6 +34,7 @@ public final class Login implements Page {
                 currentUser = user;
                 currentUser.showUserMovies();
                 currPage = "auth";
+                pages = new ArrayList<>();
                 return;
             }
         }

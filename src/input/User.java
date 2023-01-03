@@ -19,6 +19,8 @@ public final class User {
     private ArrayList<Movie> watchedMovies = new ArrayList<>();
     private ArrayList<Movie> likedMovies = new ArrayList<>();
     private ArrayList<Movie> ratedMovies = new ArrayList<>();
+    private ArrayList<String> notifications = new ArrayList<>();
+    private ArrayList<String> subscriptions = new ArrayList<>();
 
     /** Displays the current user along with all their current movies without adding any movies*/
     public void showUserMovies() {
@@ -75,6 +77,7 @@ public final class User {
         ArrayNode lMovies = mapper.createArrayNode();
         ArrayNode wMovies = mapper.createArrayNode();
         ArrayNode rMovies = mapper.createArrayNode();
+        ArrayNode notifs = mapper.createArrayNode();
         //Goes through each array of Purchased Movies, Liked Movies etc.
         //in order to convert each movie into a node then add it to the arrayNode
         //respective to each kind of movie array
@@ -109,6 +112,14 @@ public final class User {
                 rMovies.add(movie.toNode());
             }
             outUser.set("ratedMovies", rMovies);
+        }
+        if (notifications.isEmpty()) {
+            outUser.set("notifications", notifs);
+        } else {
+            for (Movie movie : purchasedMovies) {
+                pMovies.add(movie.toNode());
+            }
+            outUser.set("purchasedMovies", pMovies);
         }
         return outUser;
     }

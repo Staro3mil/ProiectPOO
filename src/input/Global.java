@@ -18,4 +18,5 @@ public class Global {
     //the output which will be written into the JSON file at the end
     public static ArrayNode output;
     //public static int errors = 0;
+    public static ArrayList<String> pages = new ArrayList<>();
 }
