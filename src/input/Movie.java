@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static input.Global.movies;
 
@@ -21,7 +22,7 @@ public final class Movie {
     private ArrayList<String> genre = new ArrayList<>();
     //Each movie has an array of ratings from previous users
     // which is used to calculate the rating
-    private ArrayList<Double> ratings = new ArrayList<>();
+    private HashMap<String, Double> ratings = new HashMap<>();
 
     /** Converts the Movie object to an ObjectNode and returns it */
     public ObjectNode toNode() {
@@ -142,11 +143,11 @@ public final class Movie {
         this.numRatings = numRatings;
     }
 
-    public ArrayList<Double> getRatings() {
+    public HashMap<String, Double> getRatings() {
         return ratings;
     }
 
-    public void setRatings(final ArrayList<Double> ratings) {
+    public void setRatings(HashMap<String, Double> ratings) {
         this.ratings = ratings;
     }
 

@@ -20,6 +20,15 @@ public final class Action {
     private String subscribedGenre;
 
     private Movie addedMovie;
+    private String deletedMovie;
+
+    public String getDeletedMovie() {
+        return deletedMovie;
+    }
+
+    public void setDeletedMovie(String deletedMovie) {
+        this.deletedMovie = deletedMovie;
+    }
 
     public Movie getAddedMovie() {
         return addedMovie;

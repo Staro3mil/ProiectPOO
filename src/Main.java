@@ -82,7 +82,7 @@ public class Main {
                     if (currAction.getFeature().equals("add")) {
                         global.addData(currAction.getAddedMovie());
                     } else {
-                        return;
+                        global.removeData((currAction.getDeletedMovie()));
                     }
                     break;
                 default:
@@ -90,7 +90,7 @@ public class Main {
             }
 
         }
-
+        global.recommend();
 
 
 

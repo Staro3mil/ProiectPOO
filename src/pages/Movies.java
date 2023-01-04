@@ -80,6 +80,7 @@ public final class Movies implements Page {
         String movieName = action.getMovie();
         for (Movie movie : currentMovies) {
             if (movieName.equals(movie.getName())) {
+                pages.add(currPage);
                 ObjectMapper mapper = new ObjectMapper();
                 ObjectNode errorOut = mapper.createObjectNode();
                 errorOut.set("error", null);
@@ -144,7 +145,7 @@ public final class Movies implements Page {
                 currentUser.showUserMovies();
                 break;
             case "back":
-                int n = pages.size();
+                int n = pages.size() - 1;
                 String page = pages.get(n);
                 pages.remove(n);
                 changePage(page);

@@ -45,6 +45,23 @@ public final class User {
 //        errorOut.put("number", errors);
         output.add(errorOut);
     }
+    /** Displays the current user along with all their current movies without adding any movies*/
+    public void displayReccomendation() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode errorOut = mapper.createObjectNode();
+        errorOut.set("error", null);
+        errorOut.set("currentMoviesList", null);
+        if (currentUser == null) {
+            String nothing = null;
+            errorOut.put("currentUser", nothing);
+        } else {
+            ObjectNode cred = currentUser.toNode();
+            errorOut.set("currentUser", cred);
+        }
+//        errors++;
+//        errorOut.put("number", errors);
+        output.add(errorOut);
+    }
     /** Resets the movies of the user and adds all the ones that aren't banned*/
     public void resetMovies() {
         currentMovies = new ArrayList<>();
@@ -116,10 +133,10 @@ public final class User {
         if (notifications.isEmpty()) {
             outUser.set("notifications", notifs);
         } else {
-            for (Movie movie : purchasedMovies) {
-                pMovies.add(movie.toNode());
+            for (Notification notification : notifications) {
+                notifs.add(notification.toNode());
             }
-            outUser.set("purchasedMovies", pMovies);
+            outUser.set("notifications", notifs);
         }
         return outUser;
     }

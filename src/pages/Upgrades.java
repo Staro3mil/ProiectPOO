@@ -72,6 +72,13 @@ public final class Upgrades implements Page {
                 currentUser = null;
                 pages = new ArrayList<>();
                 break;
+            case "back":
+                int n = pages.size() - 1;
+                String page = pages.get(n);
+                pages.remove(n);
+                changePage(page);
+                pages.remove(n);
+                break;
             default:
                 error();
                 break;

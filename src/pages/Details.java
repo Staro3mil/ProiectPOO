@@ -6,6 +6,9 @@ import input.Movie;
 import input.Action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import static input.Global.currentMovies;
 import static input.Global.currentUser;
 import static input.Global.output;
@@ -20,6 +23,13 @@ public final class Details implements Page  {
     public void purchaseMovie(final Action action) {
         ArrayList<Movie> movies = currentUser.getPurchasedMovies();
         Movie purchasedMovie = currentMovies.get(0);
+        //Checks if the user already bought the movie
+        for (Movie existingMovies : currentUser.getPurchasedMovies()) {
+            if (existingMovies.getName().equals(purchasedMovie.getName())) {
+                error();
+                return;
+            }
+        }
         //Checks if the user is premium
         if (currentUser.getCredentials().getAccountType().equals("premium")) {
             //Checks if the user has free movies to use
@@ -58,6 +68,13 @@ public final class Details implements Page  {
         String movieName = currentMovies.get(0).getName();
         ArrayList<Movie> likedMovies = currentUser.getLikedMovies();
         Movie likedMovie;
+        //Checks if the user already liked the movie
+        for (Movie existingMovies : currentUser.getLikedMovies()) {
+            if (existingMovies.getName().equals(movieName)) {
+                error();
+                return;
+            }
+        }
         //Looks in the list of watched movies for the movie that the user wants to like
         //if there is no movie it will return an error
         for (Movie movie : currentUser.getWatchedMovies()) {
@@ -83,6 +100,13 @@ public final class Details implements Page  {
         String movieName = currentMovies.get(0).getName();
         ArrayList<Movie> movies = currentUser.getWatchedMovies();
         Movie watchedMovie;
+        //Checks if the user already watched the movie
+        for (Movie existingMovies : currentUser.getWatchedMovies()) {
+            if (existingMovies.getName().equals(movieName)) {
+                currentUser.showUserMovies();
+                return;
+            }
+        }
         //Looks in the list of purchased movies for the movie that the user wants to watch
         //if there is no movie it will return an error
         for (Movie movie : currentUser.getPurchasedMovies()) {
@@ -104,9 +128,18 @@ public final class Details implements Page  {
             error();
             return;
         }
+
         String movieName = currentMovies.get(0).getName();
         ArrayList<Movie> movies = currentUser.getRatedMovies();
         Movie ratedMovie;
+        //Checks if the user already rated the movie
+        for (Movie existingMovies : currentUser.getRatedMovies()) {
+            if (existingMovies.getName().equals(movieName)) {
+                rate(existingMovies.getName(), action.getRate());
+                currentUser.showUserMovies();
+                return;
+            }
+        }
         //Looks in the list of watched movies for the movie that the user wants to rate
         //if there is no movie it will return an error
         for (Movie movie : currentUser.getWatchedMovies()) {
@@ -129,13 +162,13 @@ public final class Details implements Page  {
             //Checks if the name of the movie matches the one we want to rate
             if (movieName.equals(movie)) {
                 //Gets the array of already existing ratings
-                ArrayList<Double> ratings = searchMovie.getRatings();
+                HashMap<String, Double> ratings = searchMovie.getRatings();
                 //Adds the new rating
-                ratings.add(rate);
+                ratings.put(currentUser.getCredentials().getName(), rate);
                 Double sum = 0.0;
                 //Calculates the average of all the ratings in the array
-                for (Double rates : ratings) {
-                    sum += rates;
+                for (Map.Entry<String, Double> rates : ratings.entrySet()) {
+                    sum += rates.getValue();
                 }
                 sum = sum / ratings.size();
                 //Sets the new array of ratings, the new rating of the movie
@@ -211,7 +244,7 @@ public final class Details implements Page  {
                 pages = new ArrayList<>();
                 break;
             case "back":
-                int n = pages.size();
+                int n = pages.size() - 1;
                 String page = pages.get(n);
                 pages.remove(n);
                 changePage(page);
