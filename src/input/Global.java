@@ -4,8 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class Global {
     //current page the user is on
@@ -24,12 +25,74 @@ public final class Global {
     public static ArrayList<String> pages = new ArrayList<>();
 
    public void recommend(){
-       if (currentUser != null && currentUser.getCredentials().getAccountType().equals("premium")) {
+       HashMap<String, Integer> likes = new HashMap<>();
+       likes.put("Action", 0);
+       likes.put("Comedy", 0);
+       likes.put("Crime", 0);
+       likes.put("Thriller", 0);
+       for (Movie movie : currentUser.getLikedMovies()) {
+            for (String movieGenre : movie.getGenres()) {
+                likes.put(movieGenre, likes.get(movieGenre) + 1);
+            }
+       }
+       Integer max = 0;
+       for (Map.Entry<String, Integer> element : likes.entrySet()) {
+           if ( element.getValue() > max) {
+               max = element.getValue();
+           }
+       }
+       if (max == 0) {
            Notification notification = new Notification("No recommendation", "Recommendation");
            ArrayList<Notification> notif = currentUser.getNotifications();
            notif.add(notification);
            currentUser.setNotifications(notif);
-           currentUser.displayReccomendation();
+           currentUser.displayRecommendation();
+           return;
+       }
+       for (Map.Entry<String, Integer> element : likes.entrySet()) {
+           if ( element.getValue() == max) {
+               genreRecommended(element.getKey());
+               return;
+           }
+       }
+
+
+
+
+
+   }
+
+   public void genreRecommended(String genre) {
+       currentUser.resetMovies();
+       for (Movie likedMovie : currentUser.getLikedMovies()) {
+           for (int i = 0; i < currentMovies.size(); i++) {
+               Movie movie = currentMovies.get(i);
+               if (likedMovie.getName().equals(movie.getName())) {
+                   currentMovies.remove(i);
+               }
+           }
+       }
+       String movieName = currentMovies.get(0).getName();
+       int maxLikes = 0;
+       for (Movie movie : currentMovies) {
+           for (String movieGenre : movie.getGenres()) {
+               if (movieGenre.equals(genre) && movie.getNumLikes() > maxLikes) {
+                   movieName = movie.getName();
+               }
+           }
+       }
+       if (movieName.isEmpty()) {
+           Notification notification = new Notification("No recommendation", "Recommendation");
+           ArrayList<Notification> notif = currentUser.getNotifications();
+           notif.add(notification);
+           currentUser.setNotifications(notif);
+           currentUser.displayRecommendation();
+       } else {
+           Notification notification = new Notification(movieName, "Recommendation");
+           ArrayList<Notification> notif = currentUser.getNotifications();
+           notif.add(notification);
+           currentUser.setNotifications(notif);
+           currentUser.displayRecommendation();
        }
    }
 

@@ -182,6 +182,13 @@ public final class Details implements Page  {
     }
     /** Subscribes to a genre **/
     public void subscribeGenre(final Action action) {
+        //checks if the genre is already subscribed
+        for (String genre : currentUser.getSubscriptions()) {
+            if (genre.equals(action.getSubscribedGenre())) {
+                error();
+                return;
+            }
+        }
         for (String genre: currentMovies.get(0).getGenres()) {
             if (genre.equals(action.getSubscribedGenre())) {
                 ArrayList<String> subscriptions = currentUser.getSubscriptions();
@@ -213,6 +220,7 @@ public final class Details implements Page  {
                 break;
             case "subscribe":
                 subscribeGenre(action);
+                break;
             default:
                 error();
                 break;

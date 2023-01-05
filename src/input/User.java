@@ -46,7 +46,7 @@ public final class User {
         output.add(errorOut);
     }
     /** Displays the current user along with all their current movies without adding any movies*/
-    public void displayReccomendation() {
+    public void displayRecommendation() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode errorOut = mapper.createObjectNode();
         errorOut.set("error", null);

@@ -90,7 +90,10 @@ public class Main {
             }
 
         }
-        global.recommend();
+        if (currentUser != null && currentUser.getCredentials().getAccountType().equals("premium")) {
+            global.recommend();
+        }
+
 
 
 
