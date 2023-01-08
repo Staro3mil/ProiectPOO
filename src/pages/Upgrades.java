@@ -75,6 +75,11 @@ public final class Upgrades implements Page {
             case "back":
                 int n = pages.size() - 1;
                 String page = pages.get(n);
+                if (page.equals("auth")) {
+                    currPage = "auth";
+                    pages.remove(n);
+                    break;
+                }
                 pages.remove(n);
                 changePage(page);
                 pages.remove(n);

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public final class Global {
@@ -25,11 +26,17 @@ public final class Global {
     public static ArrayList<String> pages = new ArrayList<>();
 
    public void recommend(){
-       HashMap<String, Integer> likes = new HashMap<>();
+       LinkedHashMap<String, Integer> likes = new LinkedHashMap<>();
        likes.put("Action", 0);
        likes.put("Comedy", 0);
        likes.put("Crime", 0);
+       likes.put("Drama", 0);
+       likes.put("Fantasy", 0);
+       likes.put("Horror", 0);
+       likes.put("Mystery", 0);
+       likes.put("Romance", 0);
        likes.put("Thriller", 0);
+       likes.put("Western", 0);
        for (Movie movie : currentUser.getLikedMovies()) {
             for (String movieGenre : movie.getGenres()) {
                 likes.put(movieGenre, likes.get(movieGenre) + 1);
@@ -133,7 +140,7 @@ public final class Global {
                         Notification notifSingle = new Notification(movie.getName(), "ADD");
                         notif.add(notifSingle);
                         user.setNotifications(notif);
-                        break;
+                        return;
                     }
                 }
             }

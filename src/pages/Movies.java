@@ -127,6 +127,11 @@ public final class Movies implements Page {
     @Override
     public void changePage(final String nextPage) {
         switch (nextPage) {
+            case "upgrades":
+                pages.add(currPage);
+                currPage = "upgrades";
+                currentUser.resetMovies();
+                break;
             case "homepage":
                 pages.add(currPage);
                 currPage = "auth";
