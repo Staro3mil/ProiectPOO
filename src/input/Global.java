@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -25,6 +24,7 @@ public final class Global {
     //public static int errors = 0;
     public static ArrayList<String> pages = new ArrayList<>();
 
+    /** Checks a user's most liked movie genre and sends it as a parameter to the genreRecommend function **/
    public void recommend(){
        LinkedHashMap<String, Integer> likes = new LinkedHashMap<>();
        likes.put("Action", 0);
@@ -68,7 +68,7 @@ public final class Global {
 
 
    }
-
+    /** Looks into the movie database for a movie that matches the given genre and that has the most amount of likes **/
    public void genreRecommended(String genre) {
        currentUser.resetMovies();
        for (Movie likedMovie : currentUser.getLikedMovies()) {
@@ -109,13 +109,10 @@ public final class Global {
             if (existingMovie.getName().equals(movie.getName())) {
                 ObjectMapper mapper = new ObjectMapper();
                 ObjectNode errorOut = mapper.createObjectNode();
-                //errorOut.put("error", "Error Details");
                 errorOut.put("error", "Error");
                 ArrayNode movieArray = mapper.createArrayNode();
                 errorOut.set("currentMoviesList", movieArray);
                 errorOut.set("currentUser", null);
-                //errors++;
-                //errorOut.put("number", errors);
                 output.add(errorOut);
                 return;
             }
@@ -146,6 +143,7 @@ public final class Global {
             }
         }
     }
+    /** Removes a movie from the global database **/
     public void removeData (final String deletedMovie) {
         for ( Movie movie : movies) {
             //goes through all movies
@@ -209,7 +207,6 @@ public final class Global {
         //if there was no movie found with that name returns an error
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode errorOut = mapper.createObjectNode();
-        //   errorOut.put("error", "Movies Error");
         errorOut.put("error", "Error");
         ArrayNode movieArray = mapper.createArrayNode();
         errorOut.set("currentMoviesList", movieArray);

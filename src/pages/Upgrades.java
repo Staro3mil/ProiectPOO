@@ -98,8 +98,6 @@ public final class Upgrades implements Page {
         ArrayNode movieArray = mapper.createArrayNode();
         errorOut.set("currentMoviesList", movieArray);
         errorOut.set("currentUser", null);
-//        errors++;
-//        errorOut.put("number", errors);
         output.add(errorOut);
     }
 }

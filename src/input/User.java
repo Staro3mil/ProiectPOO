@@ -9,7 +9,7 @@ import static input.Global.currentUser;
 import static input.Global.currentMovies;
 import static input.Global.movies;
 import static input.Global.output;
-//import static input.Global.errors;
+
 
 public final class User {
     private Credentials credentials;
@@ -41,8 +41,6 @@ public final class User {
             ObjectNode cred = currentUser.toNode();
             errorOut.set("currentUser", cred);
         }
-//        errors++;
-//        errorOut.put("number", errors);
         output.add(errorOut);
     }
     /** Displays the current user along with all their current movies without adding any movies*/
@@ -58,8 +56,6 @@ public final class User {
             ObjectNode cred = currentUser.toNode();
             errorOut.set("currentUser", cred);
         }
-//        errors++;
-//        errorOut.put("number", errors);
         output.add(errorOut);
     }
     /** Resets the movies of the user and adds all the ones that aren't banned*/

@@ -7,9 +7,6 @@ public final class Input {
     private ArrayList<Movie> movies;
     private ArrayList<Action> actions;
 
-    public Input() {
-
-    }
 
     public ArrayList<User> getUsers() {
         return users;

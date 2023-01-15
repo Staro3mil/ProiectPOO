@@ -12,7 +12,7 @@ import static input.Global.currentUser;
 import static input.Global.output;
 import static input.Global.currPage;
 import static input.Global.pages;
-//import static input.Global.errors;
+
 
 public final class Auth implements Page {
 
@@ -50,12 +50,9 @@ public final class Auth implements Page {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode errorOut = mapper.createObjectNode();
        errorOut.put("error", "Error");
-   //     errorOut.put("error", "Error Auth");
         ArrayNode movieArray = mapper.createArrayNode();
         errorOut.set("currentMoviesList", movieArray);
         errorOut.set("currentUser", null);
-//        errors++;
-//        errorOut.put("number", errors);
         output.add(errorOut);
 
     }

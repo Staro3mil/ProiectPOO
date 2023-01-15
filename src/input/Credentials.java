@@ -10,10 +10,7 @@ public final class Credentials {
     private String accountType;
     private String country;
     private String balance;
-    /** Makes a credentials class*/
-    public Credentials() {
 
-    }
     /** Converts the credentials into an ObjectNode and returns it*/
     public ObjectNode toNode() {
         ObjectMapper mapper = new ObjectMapper();

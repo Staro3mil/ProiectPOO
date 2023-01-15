@@ -15,7 +15,6 @@ import static input.Global.output;
 import static input.Global.currPage;
 import static input.Global.movies;
 import static input.Global.pages;
-//import static input.Global.errors;
 
 
 public final class Details implements Page  {
@@ -268,13 +267,10 @@ public final class Details implements Page  {
     public void error() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode errorOut = mapper.createObjectNode();
-        //errorOut.put("error", "Error Details");
         errorOut.put("error", "Error");
         ArrayNode movieArray = mapper.createArrayNode();
         errorOut.set("currentMoviesList", movieArray);
         errorOut.set("currentUser", null);
-//        errors++;
-//        errorOut.put("number", errors);
         output.add(errorOut);
     }
 }

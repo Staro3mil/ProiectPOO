@@ -13,7 +13,7 @@ import static input.Global.output;
 import static input.Global.currPage;
 import static input.Global.users;
 import static input.Global.pages;
-//import static input.Global.errors;
+
 
 
 
@@ -55,8 +55,6 @@ public final class Login implements Page {
         ArrayNode movieArray = mapper.createArrayNode();
         errorOut.set("currentMoviesList", movieArray);
         errorOut.set("currentUser", null);
-//        errors++;
-//        errorOut.put("number", errors);
         output.add(errorOut);
         currPage = "unauth";
     }
